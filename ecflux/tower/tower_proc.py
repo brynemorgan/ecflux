@@ -37,12 +37,13 @@ Copyright:      (c) Bryn Morgan 2021
 
 
 import os
+import sys
 
-import math
-import random
-import subprocess
+# import math
+# import random
+# import subprocess
 
-import pytz
+# import pytz
 import datetime
 import numpy as np
 import pandas as pd
@@ -51,20 +52,8 @@ import pandas as pd
 from scipy import stats
 
 
-
-import uavet
-from uavet.buckets import FlirImageBucket
-from uavet.config import ProductionConfig 
 from uavet import utils
-from uavet import Flight
-from uavet import FlirImage
-from uavet.images import FlirImageFolder
-from uavet import et
-from uavet import met_utils as met
-from uavet import temp_utils as temp
-from uavet import most
 
-from timer import Timer
 
 
 import matplotlib.pyplot as plt
