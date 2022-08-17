@@ -64,7 +64,7 @@ class FluxTower():
 
     """
 
-    def __init__(self, filename=None, flux_data=None, flux_bucket=None, raw_bucket=None, config=None):
+    def __init__(self, filepath=None, meta=None):
 
         
         # config
