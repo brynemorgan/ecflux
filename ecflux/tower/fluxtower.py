@@ -53,6 +53,11 @@ class FluxTower():
 
         self.met = None
 
+        # lat,lon,alt
+        if self.metadata:
+            self.set_coords()
+        # utc_offset
+            self.set_tz()
     
     def get_metadata(self, meta_file):
         raise NotImplementedError
@@ -67,4 +72,11 @@ class FluxTower():
         raise NotImplementedError
 
 
+    def set_coords(self):
 
+        self.lat = float(self.metadata.get('LAT'))
+        self.lon = float(self.metadata.get('LONG'))
+        self.alt = float(self.metadata.get('ELEV'))
+
+    def set_tz(self):
+        self.utc_offset = self.metadata.get('UTC_OFFSET')

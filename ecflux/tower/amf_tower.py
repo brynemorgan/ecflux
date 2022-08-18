@@ -43,7 +43,7 @@ from tower import FluxTower
 # VARIABLES
 
 AMF_META_VARS = {
-    'SITE_ID' : 'SITE_ID',
+    'AMF_ID' : 'AMF_ID',
     'SITE_NAME' : 'SITE_NAME',
     'DATE_START' : 'FLUX_MEASUREMENTS_DATE_START',
     'DATE_END' : 'FLUX_MEASUREMENTS_DATE_END',
@@ -55,7 +55,50 @@ AMF_META_VARS = {
     'LONG' : 'LOCATION_LONG',
     'ELEV' : 'LOCATION_ELEV',
     'UTC_OFFSET' : 'UTC_OFFSET',
-    'VEG_HEIGHT' : 'HEIGHTC',
+    # 'VEG_HEIGHT' : 'HEIGHTC',
+}
+
+AMF_SUPP_META = {
+    'CR-SoC' : {
+        'SITE_ID' : 'SOLC',
+        'VEG_HEIGHT' : None,
+        'TOWER_HEIGHT' : None
+    },
+    'US-Wkg' : {
+        'SITE_ID' : 'WALN',
+        'VEG_HEIGHT' : 0.5,
+        'TOWER_HEIGHT' : None
+    },
+    'US-xBR' : {
+        'SITE_ID' : 'BART',
+        'VEG_HEIGHT' : 23.0,
+        'TOWER_HEIGHT' : None
+    },
+    'US-xGR' : {
+        'SITE_ID' : 'GRSM',
+        'VEG_HEIGHT' : 30.0,
+        'TOWER_HEIGHT' : None
+    },
+    'US-xHA' : {
+        'SITE_ID' : 'HARV',
+        'VEG_HEIGHT' : 26.0,
+        'TOWER_HEIGHT' : None
+    },
+    'US-xRN' : {
+        'SITE_ID' : 'ORNL',
+        'VEG_HEIGHT' : 28.0,
+        'TOWER_HEIGHT' : None
+    },
+    'US-xSE' : {
+        'SITE_ID' : 'SERC',
+        'VEG_HEIGHT' : 38.0,
+        'TOWER_HEIGHT' : None
+    },
+    'US-xSJ' : {
+        'SITE_ID' : 'SJER',
+        'VEG_HEIGHT' : 21.0,
+        'TOWER_HEIGHT' : 39.0
+    },
 }
 
 # Numeric columns (incomplete list)
@@ -66,38 +109,53 @@ def cols_to_dict(df, key_col='VARIABLE', val_col='DATAVALUE'):
     return pd.Series(df[val_col].values,index=df[key_col]).to_dict()
 
 # Raw AMF BIF data
-AMF_METADATA_DF = pd.read_csv(
+AMF_BADM_DF = pd.read_csv(
     os.path.join(
         os.path.dirname(os.path.realpath(__file__)), 
         'AMF_AA-Net_BIF_CCBY4_20220811.csv'
     )
 )# AMF BADM data for all sites (dict of dicts)
-AMF_SITE_METADATA = AMF_METADATA_DF.groupby('SITE_ID').apply(cols_to_dict).to_dict()
+AMF_SITE_BADM = AMF_BADM_DF.groupby('SITE_ID').apply(cols_to_dict).to_dict()
 
 # Restructured AMF BADM data
-AMF_METADATA_DB = pd.DataFrame(list(AMF_METADATA_DF.groupby('SITE_ID').apply(cols_to_dict).values))
-AMF_METADATA_DB.insert(0, 'SITE_ID',AMF_METADATA_DF.SITE_ID.unique())
+AMF_BADM_DB = pd.DataFrame(list(AMF_BADM_DF.groupby('SITE_ID').apply(cols_to_dict).values))
+AMF_BADM_DB.insert(0, 'SITE_ID',AMF_BADM_DF.SITE_ID.unique())
 # Convert columns to numeric
-AMF_METADATA_DB[num_cols] = AMF_METADATA_DB[num_cols].apply(pd.to_numeric, errors='coerce')
+AMF_BADM_DB[num_cols] = AMF_BADM_DB[num_cols].apply(pd.to_numeric, errors='coerce')
 
+# AMF_SUPP_META = pd.read_csv(
+#     os.path.join(
+#         os.path.dirname(os.path.realpath(__file__)), 
+#         'AMF_Supplementary_Metadata.csv'
+#     )
+# )
 
 
 class AmeriFluxTower(FluxTower):
 
-    def __init__(self, amf_id, filepath):
+    def __init__(self, filepath, amf_id=None):
 
-        super().init(filepath)
+        super().__init__(filepath)
 
-        self.amf_id = amf_id
+        # amf_id
+        if amf_id:
+            self.amf_id = amf_id
+        else:
+            self.amf_id = os.path.basename(self._filepath)[4:10]
 
-        self.badm = self.get_badm(self.amf_id)
-
-    
-    def set_metadata(self):
+        # badm
+        self.badm = {'AMF_ID' : self.amf_id} | AMF_SITE_BADM.get(self.amf_id)
+        # self.badm = AMF_BADM_DB[AMF_BADM_DB.SITE_ID == self.amf_id].to_dict(orient='records')
         
-        return None
-    
-    def get_badm(self, amf_id):
+        # metadata
+        self.set_metadata()
 
-        return AMF_METADATA_DB[AMF_METADATA_DB.SITE_ID == amf_id].to_dict(orient='records')
+    
+        
+
+    def set_metadata(self):
+
+        self.metadata = {k : self.badm.get(v, None) for k,v in AMF_META_VARS.items()}
+        self.metadata.update(AMF_SUPP_META.get(self.amf_id))
+        
 
