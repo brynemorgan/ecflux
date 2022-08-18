@@ -38,7 +38,7 @@ import os
 import numpy as np
 import pandas as pd
 
-from tower import FluxTower
+from fluxtower import FluxTower
 
 # VARIABLES
 
