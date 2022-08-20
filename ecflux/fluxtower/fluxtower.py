@@ -35,23 +35,35 @@ Copyright:      (c) Bryn Morgan 2022
 
 # IMPORTS 
 import os
+import warnings
 import numpy as np
 import pandas as pd
 
+from fluxtower.utils import get_recols,import_dat
 
 class FluxTower():
 
-    def __init__(self, filepath=None, meta_file=None):
+    def __init__(self, filepath=None, meta_file=None, biomet_files=None):
 
+        # _filepath
         self._filepath = filepath
-
+        # _meta_file
         self._meta_file = meta_file
-
+        # _biomet_files
+        # self._biomet_files = biomet_files
+        # metadata
         self.metadata = None
+        # flux
+        self.flux = None
+        # biomet
+        if biomet_files:
+            self.set_biomet(biomet_files)
+        else:
+            self.biomet = None
+            # warnings.warn("No biomet files passed. Proceeding without biomet data.")
 
-        self.fluxdata = None
-
-        self.met = None
+        # data
+        self.data = None
 
         # lat,lon,alt
         if self.metadata:
@@ -65,8 +77,14 @@ class FluxTower():
     def import_flux(self):
         raise NotImplementedError
     
-    def import_biomet(self):
-        raise NotImplementedError
+    def set_biomet(self, biomet_files):
+
+        if isinstance(biomet_files, str):
+            self.biomet = import_dat(biomet_files)
+        elif isinstance(biomet_files, list):
+            self.biomet_list = [ import_dat(file) for file in biomet_files ]
+            self.biomet = self.biomet_list[0].join(self.biomet_list[1:], how='inner')
+
     
     def get_met(self):
         raise NotImplementedError
@@ -80,3 +98,6 @@ class FluxTower():
 
     def set_tz(self):
         self.utc_offset = self.metadata.get('UTC_OFFSET')
+    
+
+    

@@ -144,14 +144,17 @@ class AmeriFluxTower(FluxTower):
             self.amf_id = os.path.basename(self._filepath)[4:10]
 
         # badm
-        self.badm = {'AMF_ID' : self.amf_id} | AMF_SITE_BADM.get(self.amf_id)
-        # self.badm = AMF_BADM_DB[AMF_BADM_DB.SITE_ID == self.amf_id].to_dict(orient='records')
-        
+        self.set_badm()
+                
         # metadata
         self.set_metadata()
 
-    
-        
+        # _base_file
+        self._base_file = self.get_flux_file()
+
+        # flux
+        self.flux = self.import_flux()
+
 
     def set_metadata(self):
 
@@ -159,3 +162,33 @@ class AmeriFluxTower(FluxTower):
         self.metadata.update(AMF_SUPP_META.get(self.amf_id))
         
 
+    def set_badm(self):
+
+        # self.badm = AMF_BADM_DB[AMF_BADM_DB.SITE_ID == self.amf_id].to_dict(orient='records')
+        self.badm = {'AMF_ID' : self.amf_id} | AMF_SITE_BADM.get(self.amf_id)
+        self.badm.update((k, pd.to_numeric(v,errors='ignore')) for k, v in self.badm.items())
+    
+    def get_flux_file(self):
+
+        file = [file for file in os.listdir(self._filepath) if 'BASE' in file][0]
+
+        return os.path.join(self._filepath,file)
+    
+
+    def import_flux(self, skiprows=2, na_values=-9999., **kwargs):
+
+        '''
+        NOTE: Would like to parse dates on import (see below), but this is ~9x slower than
+        converting dates afterwards...
+        flux = pd.read_csv(base_file, skiprows=2, parse_dates=[0,1], infer_datetime_format=True, na_values=-9999.)
+
+        '''
+
+        flux = pd.read_csv(self._base_file, skiprows=skiprows, na_values=na_values, **kwargs)
+
+        flux.TIMESTAMP_START = pd.to_datetime(flux.TIMESTAMP_START, format='%Y%m%d%H%M')
+        flux.TIMESTAMP_END = pd.to_datetime(flux.TIMESTAMP_END, format='%Y%m%d%H%M')
+
+        flux.set_index('TIMESTAMP_END', inplace=True)
+
+        return flux
