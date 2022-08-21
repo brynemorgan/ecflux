@@ -59,8 +59,8 @@ class EddyProTower(FluxTower):
             ) for file in self._flux_files]
         )
 
-        # # 3. ALIGN BIOMET WITH FLUX
-        # data = self.flux.join(self.biomet.resample('30T').mean(),on='date_time',rsuffix='_MET')
+        # data
+        self.set_data()
     
     def get_flux_files(self):
 
@@ -112,3 +112,4 @@ class EddyProTower(FluxTower):
         # df.date_time = df.date_time.apply(utils.make_tzaware, utc_offset=-8, tz_name='America/Los_Angeles')
 
         return df
+

@@ -38,7 +38,8 @@ import os
 import numpy as np
 import pandas as pd
 
-from fluxtower import FluxTower
+from fluxtower import FluxTower,utils
+
 
 # VARIABLES
 
@@ -155,6 +156,9 @@ class AmeriFluxTower(FluxTower):
         # flux
         self.flux = self.import_flux()
 
+        # data
+        self.set_data()
+
 
     def set_metadata(self):
 
@@ -173,7 +177,7 @@ class AmeriFluxTower(FluxTower):
         file = [file for file in os.listdir(self._filepath) if 'BASE' in file][0]
 
         return os.path.join(self._filepath,file)
-    
+
 
     def import_flux(self, skiprows=2, na_values=-9999., **kwargs):
 
@@ -192,3 +196,23 @@ class AmeriFluxTower(FluxTower):
         flux.set_index('TIMESTAMP_END', inplace=True)
 
         return flux
+
+
+    def _get_var_cols(self, var):
+
+        col_list = list(self.data.columns)
+
+        if var in col_list:
+            return var
+        else:
+            regex = var + '_[0-9]_[0-9]_[0-9]'
+            # regex = '(?<![A-Z])G(?![A-Z])(_[0-9]_[0-9]_[0-9])?'
+            cols = utils.get_recols(regex, col_list)
+            if cols:
+                return cols
+            else:
+                return None
+
+    def set_data(self):
+        self.data = self.flux.copy()
+        self._update_var_dict()

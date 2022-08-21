@@ -34,11 +34,36 @@ Copyright:      (c) Bryn Morgan 2022
 
 
 # IMPORTS
+import os
 import re
 import pandas as pd
 
 
+# VARIABLES
+
+var_df = pd.read_csv(
+    os.path.join(os.path.dirname(os.path.realpath(__file__)),'variables.csv'), 
+    index_col='VARIABLE'
+)
+var_df = var_df.where(pd.notnull(var_df), None)
+
+VARIABLES = var_df['Variable_Units'].to_dict()
+
+
 # FUNCTIONS
+
+def get_var_dict(subclass):
+
+    var_dict = dict( zip( 
+        var_df.index, 
+        zip( 
+            var_df[subclass[:-5] + '_Name'].values, 
+            var_df[subclass[:-5] + '_Units'].values 
+        ) 
+    ) )
+
+    return var_dict
+
 
 def get_recols(regex, col_list):
 
@@ -58,3 +83,5 @@ def import_dat(file, skiprows=[0,2,3], na_values='NAN', index_col='TIMESTAMP',
     )
 
     return dat
+
+
