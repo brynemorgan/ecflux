@@ -68,32 +68,32 @@ AMF_SUPP_META = {
     'US-Wkg' : {
         'SITE_ID' : 'WALN',
         'VEG_HEIGHT' : 0.5,
-        'TOWER_HEIGHT' : None
+        'TOWER_HEIGHT' : 6.4
     },
     'US-xBR' : {
         'SITE_ID' : 'BART',
         'VEG_HEIGHT' : 23.0,
-        'TOWER_HEIGHT' : None
+        'TOWER_HEIGHT' : 35.68
     },
     'US-xGR' : {
         'SITE_ID' : 'GRSM',
         'VEG_HEIGHT' : 30.0,
-        'TOWER_HEIGHT' : None
+        'TOWER_HEIGHT' : 45.0
     },
     'US-xHA' : {
         'SITE_ID' : 'HARV',
         'VEG_HEIGHT' : 26.0,
-        'TOWER_HEIGHT' : None
+        'TOWER_HEIGHT' : 26.0
     },
     'US-xRN' : {
         'SITE_ID' : 'ORNL',
         'VEG_HEIGHT' : 28.0,
-        'TOWER_HEIGHT' : None
+        'TOWER_HEIGHT' : 28.0
     },
     'US-xSE' : {
         'SITE_ID' : 'SERC',
         'VEG_HEIGHT' : 38.0,
-        'TOWER_HEIGHT' : None
+        'TOWER_HEIGHT' : 60.0
     },
     'US-xSJ' : {
         'SITE_ID' : 'SJER',
@@ -118,21 +118,24 @@ AMF_BADM_DF = pd.read_csv(
 )# AMF BADM data for all sites (dict of dicts)
 AMF_SITE_BADM = AMF_BADM_DF.groupby('SITE_ID').apply(cols_to_dict).to_dict()
 
-# Restructured AMF BADM data
-AMF_BADM_DB = pd.DataFrame(list(AMF_BADM_DF.groupby('SITE_ID').apply(cols_to_dict).values))
-AMF_BADM_DB.insert(0, 'SITE_ID',AMF_BADM_DF.SITE_ID.unique())
-# Convert columns to numeric
-AMF_BADM_DB[num_cols] = AMF_BADM_DB[num_cols].apply(pd.to_numeric, errors='coerce')
 
-# AMF_SUPP_META = pd.read_csv(
-#     os.path.join(
-#         os.path.dirname(os.path.realpath(__file__)), 
-#         'AMF_Supplementary_Metadata.csv'
-#     )
-# )
+AMF_HEIGHT_DF = pd.read_csv(
+    os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        'BASE_MeasurementHeight_20220811.csv'
+    )
+)
+
+AMF_SITE_HEIGHT = AMF_HEIGHT_DF.groupby('Site_ID').apply(
+    cols_to_dict, key_col='Variable', val_col='Height'
+)
+
+
 
 
 class AmeriFluxTower(FluxTower):
+
+    cls_dict = utils.get_var_dict('AmeriFluxTower')
 
     def __init__(self, filepath, amf_id=None):
 
@@ -158,6 +161,7 @@ class AmeriFluxTower(FluxTower):
 
         # data
         self.set_data()
+        self.clean_data()
 
 
     def set_metadata(self):
@@ -216,3 +220,17 @@ class AmeriFluxTower(FluxTower):
     def set_data(self):
         self.data = self.flux.copy()
         self._update_var_dict()
+    
+    def get_highest(self, var):
+
+        # Get columns corresponding to variable
+        cols = self.var_dict.get(var)[0]
+        # Get columns for variable's highest measurement (VAR_#_1_#)
+        regex = self.cls_dict.get(var)[0] + '_[0-9]_1_[0-9]'
+        top = utils.get_recols(regex, cols)
+        # For one column, return the column
+        if isinstance(top, str):
+            return self.data[top[0]]
+        # For multiple columns, return the mean
+        else:
+            return self.data[top].mean(axis=1)

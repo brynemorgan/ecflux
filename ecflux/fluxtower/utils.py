@@ -85,3 +85,13 @@ def import_dat(file, skiprows=[0,2,3], na_values='NAN', index_col='TIMESTAMP',
     return dat
 
 
+def convert_units(val, unit):
+
+    # TODO: Don't do it this way. Refactor maybe with dict to map to various conversions?
+
+    if unit == 'C':
+        return val + 273.15
+    elif unit == 'Pa':
+        return val / 1000
+    elif unit == 'm':
+        return val / 1000

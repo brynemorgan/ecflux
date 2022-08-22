@@ -61,6 +61,7 @@ class EddyProTower(FluxTower):
 
         # data
         self.set_data()
+        self.clean_data()
     
     def get_flux_files(self):
 

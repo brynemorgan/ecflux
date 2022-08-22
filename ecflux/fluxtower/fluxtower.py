@@ -56,7 +56,8 @@ class FluxTower():
         # _biomet_files
         # self._biomet_files = biomet_files
         # metadata
-        self.metadata = None
+        if self._meta_file:
+            self.set_metadata()
         # flux
         self.flux = None
         # biomet
@@ -70,22 +71,30 @@ class FluxTower():
         self.data = None
 
         # _var_dict
-        self._var_dict = self._get_var_dict()
+        self.var_dict = self._get_var_dict()
 
-        # lat,lon,alt
-        if self.metadata:
-            self.set_coords()
-        # utc_offset
-            self.set_tz()
+        # # lat,lon,alt
+        # if self.metadata:
+        #     self.set_coords()
+        # # utc_offset
+        #     self.set_tz()
     
 
     def __repr__(self):
         class_name = type(self).__name__
         return '{}'.format(class_name)
 
-    def get_metadata(self, meta_file):
-        raise NotImplementedError
-    
+    def set_metadata(self):
+
+        # Read in metadata from _meta_file
+        self.metadata = pd.read_csv(
+            self._meta_file, header=None, index_col=0
+        )[1].to_dict()
+        # Convert numbers to numeric
+        self.metadata.update(
+            (k, pd.to_numeric(v, errors='ignore')) for k,v in self.metadata.items()
+        )
+
     # def import_flux(self, file, **kwargs):
 
     #     flux = pd.read_csv(file, **kwargs)
@@ -124,8 +133,8 @@ class FluxTower():
         # # Get variable dictionary from master dataframe
         # var_dict = utils.get_var_dict(type(self).__name__)
         # Update dictionary with actual column names
-        self._var_dict.update({
-            key : (self._get_var_cols(var[0]), var[1]) for key,var in self._var_dict.items() if var[0]
+        self.var_dict.update({
+            key : (self._get_var_cols(var[0]), var[1]) for key,var in self.var_dict.items() if var[0]
         })
 
     def _get_var_cols(self, var):
@@ -150,4 +159,53 @@ class FluxTower():
         )
 
         self._update_var_dict()
+
+    def calc_avg(self, var):
+
+        cols = self.var_dict.get(var)[0]
+        avg = self.data[cols].mean(axis = 1)
+
+        return avg
+    
+    def get_highest(self):
+        raise NotImplementedError
+    
+    def clean_data(self):
+        """
+        Clean self.data. The following actions are performed: 
+            1. Average replicated measurements (e.g. G, T_c)
+            2. Convert units if necessary (e.g. T, p_a)
+            3. Extract the highest measurement + average if necessary (only applies
+               to AmeriFlux data; e.g. u, SW_IN, T_a)
+            4. Rename columns
+
+        # TODO: Make this better. Would like get_highest to go in AmeriFluxTower class.
+        # TODO: Refactor to deal with profile measurements.
+        # TODO: Refactor to better handle unit conversions (current way is very bad programming).
+        """
+        for var,unit in list(VARIABLES.items())[1:]:
+
+            cols = self.var_dict.get(var)[0]
+            units = self.var_dict.get(var)[1]
+            
+            # SINGLE COLUMN
+            if isinstance(cols, str):
+                # if var == cols:
+                #     pass
+                # If units are not the same, convert units + add new column
+                if unit != units:
+                    self.data[var] = utils.convert_units(self.data[cols], units)
+                # Otherwise, rename the existing column
+                else:
+                    self.data.rename(columns={cols:var}, inplace=True)
+            # MULTIPLE COLUMNS
+            elif isinstance(cols, list):
+                if var == 'G':
+                    self.data[var] = self.calc_avg(var)
+                elif var == 'T_c':
+                    self.data[var] = utils.convert_units(self.calc_avg(var), units)
+                elif var == 'T_a':
+                    self.data[var] = utils.convert_units(self.get_highest(var), units)
+                else:
+                    self.data[var] = self.get_highest(var)
 

@@ -59,7 +59,7 @@ class CSITower(FluxTower):
         # self.biomet = self.import_biomet()
         # data
         self.set_data()
-
+        self.clean_data()
 
 
     def import_flux(self):
