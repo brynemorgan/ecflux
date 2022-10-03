@@ -38,6 +38,9 @@ import os
 import warnings
 import numpy as np
 import pandas as pd
+import datetime
+import pytz
+import timezonefinder as tzf
 
 from fluxtower.utils import VARIABLES
 from fluxtower import utils
@@ -95,6 +98,10 @@ class FluxTower():
             (k, pd.to_numeric(v, errors='ignore')) for k,v in self.metadata.items()
         )
 
+        self._set_coords()
+        self._set_tz()
+        self._set_height_params()
+
     # def import_flux(self, file, **kwargs):
 
     #     flux = pd.read_csv(file, **kwargs)
@@ -102,23 +109,66 @@ class FluxTower():
     def import_flux(self):
         raise NotImplementedError
     
+    def import_dat(self, file, skiprows=[0,2,3], na_values='NAN', dt_col='TIMESTAMP', 
+            parse_dates=True, **kwargs):
+
+        # Import data from .dat file
+        dat = pd.read_csv(
+            file, skiprows=skiprows, na_values=na_values, 
+            parse_dates=parse_dates, **kwargs
+        )
+        # Convert dt_col to datetime
+        dat[dt_col] = pd.to_datetime(dat[dt_col])
+        # Set timezone for datetime column
+        dt_named = self._set_col_tz(dat[dt_col])
+        # Set tz-aware datetime index
+        dat.set_index(dt_named, inplace=True)
+
+        return dat
+    
     def set_biomet(self, biomet_files):
 
         if isinstance(biomet_files, str):
-            self.biomet = utils.import_dat(biomet_files)
+            self.biomet = self.import_dat(biomet_files)
         elif isinstance(biomet_files, list):
-            self.biomet_list = [ utils.import_dat(file) for file in biomet_files ]
+            self.biomet_list = [ self.import_dat(file) for file in biomet_files ]
             self.biomet = self.biomet_list[0].join(self.biomet_list[1:], how='inner')
 
-    def set_coords(self):
+    def _set_coords(self):
 
-        self.lat = float(self.metadata.get('LAT'))
-        self.lon = float(self.metadata.get('LONG'))
+        # self.lat = float(self.metadata.get('LAT'))
+        # self.lon = float(self.metadata.get('LONG'))
+        self.coords = (float(self.metadata.get('LAT')), float(self.metadata.get('LONG')))
         self.alt = float(self.metadata.get('ELEV'))
 
-    def set_tz(self):
-        self.utc_offset = self.metadata.get('UTC_OFFSET')
     
+    def _set_tz(self):
+        # Get fixed UTC offset [hours] (no DST)
+        self._utc_offset = int(self.metadata.get('UTC_OFFSET'))
+        # Get named timezone 
+        self._tz_name = tzf.TimezoneFinder().timezone_at(
+            lng=self.coords[1], lat=self.coords[0]
+        )
+
+    def _set_col_tz(self, dt_naive):
+
+        # Get timezone based on UTC offset (no DST)
+        # utc_offset = self.metadata.get('UTC_OFFSET')
+        tz_offset = datetime.timezone(datetime.timedelta(hours=self._utc_offset))
+        # Set fixed UTC-offset timezone for DateTimeIndex 
+        dt_utcoff = dt_naive.dt.tz_localize(tz = tz_offset)
+        # Next, get named timezone as pytz.timezone object from tz name
+        tz_named = pytz.timezone(self._tz_name)
+        # Convert timezone to named timezone (for general compatibility)
+        dt_named = dt_utcoff.dt.tz_convert(tz = tz_named)
+
+        return dt_named
+
+    def get_utm_coords(self, datum='WGS 84'):
+        coords_utm = utils.convert_to_utm(
+            self.coords[0], self.coords[1], datum=datum
+        )
+        return coords_utm
 
     def _get_var_dict(self):
 
@@ -209,3 +259,72 @@ class FluxTower():
                 else:
                     self.data[var] = self.get_highest(var)
 
+    def _set_height_params(self):
+
+        # Tower height, z
+        self.z = self._get_tower_height()
+        # Zero-plane displacement height, d0
+        self.d_0 = self._calc_d0()
+        # Roughness length, z_0m
+        self.z_0m = self._calc_z0m()
+
+
+    def _get_tower_height(self):
+        return float(self.metadata.get('TOWER_HEIGHT'))
+    
+    def _calc_d0(self):
+        """
+        Calculate the zero-plane displacement height (height at which wind speed goes
+        to 0), d_0 [m].
+
+        Parameters
+        ----------
+        h : float
+            Canopy height [m].
+
+        Returns
+        -------
+        d_0 : float
+            Zero-plane displacement height [m].
+
+        Reference: Norman et al. (1995).
+        """
+        d_0 = 0.65 * self.metadata.get('VEG_HEIGHT')
+
+        return d_0
+
+    def _calc_z0m(self):
+        """
+        Calculate the aerodynamic roughness length for momemtum transport, z_0m [m].
+
+        Parameters
+        ----------
+        h : float
+            Canopy height [m]
+
+        Returns
+        -------
+        z_0m : float
+            Roughness length for momentum transport [m].
+
+        Reference: Norman et al. (1995).
+        """
+        z_0m = 0.125 * self.metadata.get('VEG_HEIGHT')
+
+        return z_0m
+    
+    def get_domain(self, arr):
+
+        utm_coords = self.get_utm_coords()
+        # Get distance from point
+        x_dist = arr.x - utm_coords[0]
+        y_dist = arr.y - utm_coords[1]
+        # Get max and min distances in x and y
+        x_min = x_dist.min().item()
+        x_max = x_dist.max().item()
+        y_min = y_dist.min().item()
+        y_max = y_dist.max().item()
+        # Create list for domain
+        domain = [x_min, x_max, y_min, y_max]
+
+        return domain

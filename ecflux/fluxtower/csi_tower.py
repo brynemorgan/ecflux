@@ -39,7 +39,7 @@ import numpy as np
 import pandas as pd
 
 from fluxtower import FluxTower
-from fluxtower.utils import get_recols,import_dat
+# from fluxtower.utils import get_recols,import_dat
 
 # SUB-CLASS
 
@@ -64,7 +64,7 @@ class CSITower(FluxTower):
 
     def import_flux(self):
 
-        return import_dat(self._flux_file)        
+        return self.import_dat(self._flux_file)        
 
 
     # def import_biomet(self):

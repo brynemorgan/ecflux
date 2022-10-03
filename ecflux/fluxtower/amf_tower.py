@@ -169,6 +169,8 @@ class AmeriFluxTower(FluxTower):
         self.metadata = {k : self.badm.get(v, None) for k,v in AMF_META_VARS.items()}
         self.metadata.update(AMF_SUPP_META.get(self.amf_id))
         
+        self._set_coords()
+        self._set_tz()
 
     def set_badm(self):
 
@@ -197,7 +199,9 @@ class AmeriFluxTower(FluxTower):
         flux.TIMESTAMP_START = pd.to_datetime(flux.TIMESTAMP_START, format='%Y%m%d%H%M')
         flux.TIMESTAMP_END = pd.to_datetime(flux.TIMESTAMP_END, format='%Y%m%d%H%M')
 
-        flux.set_index('TIMESTAMP_END', inplace=True)
+        dt_named = self._set_col_tz(flux.TIMESTAMP_END)
+
+        flux.set_index(dt_named, inplace=True)
 
         return flux
 

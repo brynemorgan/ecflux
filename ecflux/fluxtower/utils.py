@@ -37,6 +37,7 @@ Copyright:      (c) Bryn Morgan 2022
 import os
 import re
 import pandas as pd
+import pyproj
 
 
 # VARIABLES
@@ -74,15 +75,15 @@ def get_recols(regex, col_list):
     return cols
 
 
-def import_dat(file, skiprows=[0,2,3], na_values='NAN', index_col='TIMESTAMP', 
-            parse_dates=True, **kwargs):
+# def import_dat(file, skiprows=[0,2,3], na_values='NAN', index_col='TIMESTAMP', 
+#             parse_dates=True, **kwargs):
 
-    dat = pd.read_csv(
-        file, skiprows=skiprows, na_values=na_values, index_col=index_col, 
-        parse_dates=parse_dates, **kwargs
-    )
+#     dat = pd.read_csv(
+#         file, skiprows=skiprows, na_values=na_values, index_col=index_col, 
+#         parse_dates=parse_dates, **kwargs
+#     )
 
-    return dat
+#     return dat
 
 
 def convert_units(val, unit):
@@ -95,3 +96,30 @@ def convert_units(val, unit):
         return val / 1000
     elif unit == 'm':
         return val / 1000
+
+
+def get_utm_crs(lat, long, datum='WGS 84'):
+
+    aoi = pyproj.aoi.AreaOfInterest(
+        west_lon_degree = long,
+        south_lat_degree = lat,
+        east_lon_degree = long,
+        north_lat_degree = lat
+    )
+
+    utm_crs_list = pyproj.database.query_utm_crs_info(datum, aoi)
+
+    utm_crs = pyproj.CRS.from_epsg(utm_crs_list[0].code)
+
+    return utm_crs
+
+def convert_to_utm(lat, long, datum='WGS 84'):
+
+    # Get UTM CRS
+    utm_crs = get_utm_crs(lat, long, datum=datum)
+    # Create transformer
+    proj = pyproj.Transformer.from_crs(4326, utm_crs)
+    # Transform
+    coords_utm = proj.transform(lat, long)
+
+    return coords_utm
