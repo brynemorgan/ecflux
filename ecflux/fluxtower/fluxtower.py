@@ -258,6 +258,29 @@ class FluxTower():
                     self.data[var] = utils.convert_units(self.get_highest(var), units)
                 else:
                     self.data[var] = self.get_highest(var)
+    
+        # Calculate available energy
+        self.data['Q_av'] = self.data.R_n - self.data.G
+        # Calculate energy balance residual
+        self.data['EBR'] = utils.calc_ebr(self.data.R_n, self.data.H, self.data.LE, self.data.G)
+
+
+    def attribute_ebr(self, method='all'):
+
+        if method == 'all':
+            for meth in utils.ebr_dict.keys():
+                H_corr, LE_corr = utils.attribute_ebr(
+                    self.data.H, self.data.LE, self.data.EBR, method=meth
+                )
+                self.data['H_corr_' + meth] = H_corr
+                self.data['LE_corr_' + meth] = LE_corr
+        else:
+            H_corr, LE_corr = utils.attribute_ebr(
+                self.data.H, self.data.LE, self.data.EBR, method=method
+            )
+            self.data['H_corr_' + method] = H_corr
+            self.data['LE_corr_' + method] = LE_corr
+
 
     def _set_height_params(self):
 

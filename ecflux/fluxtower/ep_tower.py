@@ -39,8 +39,9 @@ import numpy as np
 import pandas as pd
 
 from fluxtower import FluxTower
-from .FFP_Python import calc_footprint_FFP as ffp
-from .FFP_Python import calc_footprint_FFP_climatology as ffp_clim
+# from .FFP_Python import calc_footprint_FFP as calc_ffp
+# from .FFP_Python import calc_footprint_FFP_climatology as calc_ffp_clim
+from .footprint import Footprint
 # from . import ffp, ffp_clim
 # from fluxtower.utils import get_recols,import_dat
 
@@ -66,6 +67,7 @@ class EddyProTower(FluxTower):
         # data
         self.set_data()
         self.clean_data()
+        self.mask_data()
     
     def get_flux_files(self):
 
@@ -165,7 +167,7 @@ class EddyProTower(FluxTower):
                 # if use_res:
                 #     dx = domain_arr.rio.resolution()
             # Run footprint calculation
-            footprint = ffp_clim.FFP_climatology(
+            footprint = calc_ffp_clim.FFP_climatology(
                 **ffp_input, rs=rs, domain=domain, nx=nx, ny=ny, dx=dx, dy=dy, fig=fig, **kwargs
             )
         # Run regular footprint calculation
@@ -174,9 +176,45 @@ class EddyProTower(FluxTower):
             if not wind_dir:
                 ffp_input.update({'wind_dir' : None})
             # Run footprint calculation
-            footprint = ffp.FFP(**ffp_input, rs=rs, nx=nx, fig=fig, **kwargs)
+            footprint = calc_ffp.FFP(**ffp_input, rs=rs, nx=nx, fig=fig, **kwargs)
 
         return footprint
+
+
+
+    def calc_footprint(self, timestamp=None, ffp_dict=None, clim=True, avg=False, 
+                       use_umean=True, wind_dir=True, rs=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9], 
+                       domain_arr=None, use_res=False, nx=1000, ny=None, dx=None, dy=None, 
+                       fig=False, **kwargs) -> Footprint :
+
+        # Raise an error if neither timestamp nor ffp_dict were passed.
+        if not timestamp and not ffp_dict:
+            raise TypeError("ffp() missing 1 of 2 required arguments: 'timestamp' or 'ffp_dict'") 
+
+        # Get the params for ffp if not provided
+        if not ffp_dict:
+            ffp_dict = self.get_ffp_params(timestamp, avg=avg)
+
+        # Copy ffp_dict
+        ffp_input = ffp_dict.copy()
+        
+        # If desired, pass wind speed rather than roughness length (set z0 to None).
+        if use_umean:
+            ffp_input.update({'z0' : None})
+        
+        # If an array was passed, get the extent to pass to calc_FFP_climatology()
+        if domain_arr is not None:
+            domain = self.get_domain(domain_arr)
+        else:
+            domain = None
+            # if use_res:
+            #     dx = domain_arr.rio.resolution()
+        footprint = Footprint(
+            ffp_input, timestamp=timestamp, coords=self.coords,
+            rs=rs, domain=domain, nx=nx, dx=dx, dy=dy, fig=fig, **kwargs
+        )
+        return footprint
+
 
 
     def get_ffp_params(self, timestamp = None, avg=False):
@@ -273,3 +311,38 @@ class EddyProTower(FluxTower):
             h = h.fillna(1500)
 
         return h
+
+    def flag_data(self,):
+
+        flag_dict = {
+            'F_RAIN' : 11,
+            'F_LE' : 12,
+            'F_SW' : 13,
+            'F_EBR' : 1
+        }
+
+        self.data['FLAG'] = self.get_qc_flag()
+        self.data.FLAG[(self.data.FLAG == 0) & (self.data.P_RAIN_1_1_1 != 0)] = flag_dict.get('F_RAIN')
+        self.data.FLAG[(self.data.FLAG == 0) & (self.data.LE.isna())] = flag_dict.get('F_LE')
+        self.data.FLAG[(self.data.FLAG == 0) & (self.data.SW_IN < -10)] = flag_dict.get('F_SW')
+        # self.data.FLAG[(self.data.FLAG == 0) & (self.data.EBR_perc > 0.20)] = flag_dict.get('F_EBR')
+
+
+    def get_qc_flag(self):
+
+        qc_flag = self.data.qc_Tau * 100 + self.data.qc_H * 10 + self.data.qc_LE
+
+        return qc_flag
+
+    def mask_data(self):
+
+        sw_mask = self.data.SW_IN < -10.
+        self.fill_na(sw_mask, cols=['SW_IN', 'R_n'])
+
+
+    def fill_na(self, mask, cols):
+
+        raw_cols = [col + '_raw' for col in cols]
+        self.data[raw_cols] = self.data[cols].copy()
+        self.data[cols] = self.data.where(~mask, np.nan)[cols]
+

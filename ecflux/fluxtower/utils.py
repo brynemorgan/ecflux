@@ -123,3 +123,44 @@ def convert_to_utm(lat, long, datum='WGS 84'):
     coords_utm = proj.transform(lat, long)
 
     return coords_utm
+
+
+def calc_ebr(R_n, H, LE, G):
+
+    ebr = R_n - G - H - LE
+
+    return ebr
+
+def attribute_ebr_bowen(H, LE, EBR):
+
+    beta = H/LE
+
+    H_corr = H + ( (EBR * beta) / (1 + beta) )
+    LE_corr = LE + ( EBR / (1 + beta) )
+
+    return H_corr, LE_corr
+
+def attribute_ebr_h(H, LE, EBR):
+
+    H_corr = H + EBR
+
+    return H_corr, LE
+
+def attribute_ebr_le(H, LE, EBR):
+
+    LE_corr = LE + EBR
+
+    return H, LE_corr
+
+
+ebr_dict = {
+    'bowen' : attribute_ebr_bowen,
+    'H' : attribute_ebr_h,
+    'LE' : attribute_ebr_le
+}
+
+def attribute_ebr(H, LE, EBR, method='bowen'):
+
+    ebr_method = ebr_dict.get(method, 'bowen')
+
+    return ebr_method(H, LE, EBR)

@@ -1,9 +1,9 @@
 VARIABLE,EddyPro_Name,CSI_Name,AmeriFlux_Name,Variable_Units,EddyPro_Units,CSI_Units,AmeriFlux_Units,EddyPro_Source,CSI_Source,AmeriFlux_Source
 DATETIME,date_time,TIMESTAMP,TIMESTAMP_END,%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M,%Y-%m-%d %H:%M:%S,%Y%m%d%H%M,flux,flux,flux
 u,wind_speed,wnd_spd,WS,m s-1,m s-1,m s-1,m s-1,flux,flux,flux
-T_a,air_temperature,t_hmp_Avg,TA,K,K,C,C,flux,flux,flux
+T_a,TA_1_1_1,t_hmp_Avg,TA,K,K,C,C,flux,flux,flux
 p_a,air_pressure,press_mean,PA,kPa,Pa,kPa,kPa,flux,flux,flux
-RH,RH,rh_hmp_Avg,RH,%,%,%,%,flux,flux,flux
+h_r,RH_1_1_1,rh_hmp_Avg,RH,%,%,%,%,flux,flux,flux
 e_a,e,e_hmp_Avg,,kPa,Pa,kPa,,flux,flux,calculate
 rho_a,air_density,rho_a_mean,,kg m-3,kg m-3,kg m-3,,flux,flux,calculate
 c_p,air_heat_capacity,,,J K-1 kg-1,J K-1 kg-1,,,flux,calculate,calculate
