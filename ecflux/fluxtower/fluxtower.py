@@ -34,9 +34,6 @@ Copyright:      (c) Bryn Morgan 2022
 
 
 # IMPORTS 
-import os
-import warnings
-import numpy as np
 import pandas as pd
 import datetime
 import pytz
@@ -336,7 +333,10 @@ class FluxTower():
 
         return z_0m
     
-    def get_domain(self, arr):
+    def get_domain(self, arr_in):
+
+        arr = arr_in.dropna(dim='x', how='all')
+        arr = arr.dropna(dim='y', how='all')
 
         utm_coords = self.get_utm_coords()
         # Get distance from point

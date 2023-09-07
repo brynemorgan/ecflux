@@ -58,7 +58,6 @@ def FFP(zm=None, z0=None, umean=None, h=None, ol=None, sigmav=None, ustar=None,
     """
 	
     import numpy as np
-    import sys
     import numbers
 
     #===========================================================================
@@ -70,7 +69,8 @@ def FFP(zm=None, z0=None, umean=None, h=None, ol=None, sigmav=None, ustar=None,
     flag_err = 0
         
     ## Check existence of required input pars
-    if None in [zm, h, ol, sigmav, ustar] or (z0 is None and umean is None):
+    # if None in [zm, h, ol, sigmav, ustar] or (z0 is None and umean is None):
+    if any(var is None for var in (zm, h, ol, sigmav, ustar)) or (z0 is None and umean is None):
         raise_ffp_exception(1)
 
     # Define rslayer if not passed

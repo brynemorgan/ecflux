@@ -97,22 +97,38 @@ def FFP_climatology(zm=None, z0=None, umean=None, h=None, ol=None, sigmav=None, 
     flag_err = 0
         
     # Check existence of required input pars
-    if None in [zm, h, ol, sigmav, ustar] or (z0 is None and umean is None):
+    if any(var is None for var in (zm, h, ol, sigmav, ustar)) or (z0 is None and umean is None):
         raise_ffp_exception(1, verbosity)
 
     # Convert all input items to lists
-    if not isinstance(zm, list): zm = [zm]
-    if not isinstance(h, list): h = [h]
-    if not isinstance(ol, list): ol = [ol]
-    if not isinstance(sigmav, list): sigmav = [sigmav]
-    if not isinstance(ustar, list): ustar = [ustar]
-    if not isinstance(wind_dir, list): wind_dir = [wind_dir]
-    if not isinstance(z0, list): z0 = [z0]
-    if not isinstance(umean, list): umean = [umean]
+    # if not isinstance(zm, list): zm = [zm]
+    # if not isinstance(h, list): h = [h]
+    # if not isinstance(ol, list): ol = [ol]
+    # if not isinstance(sigmav, list): sigmav = [sigmav]
+    # if not isinstance(ustar, list): ustar = [ustar]
+    # if not isinstance(wind_dir, list): wind_dir = [wind_dir]
+    # if not isinstance(z0, list): z0 = [z0]
+    # if not isinstance(umean, list): umean = [umean]
+    def is_iter(var):
+        try:
+            iter(var)
+            return True
+        except:
+            return False
+    
+    if not is_iter(zm): zm = [zm]
+    if not is_iter(h): h = [h]
+    if not is_iter(ol): ol = [ol]
+    if not is_iter(sigmav): sigmav = [sigmav]
+    if not is_iter(ustar): ustar = [ustar]
+    if not is_iter(wind_dir): wind_dir = [wind_dir]
+    if not is_iter(z0): z0 = [z0]
+    if not is_iter(umean): umean = [umean]
+
 
     # Check that all lists have same length, if not raise an error and exit
     ts_len = len(ustar)
-    if any(len(lst) != ts_len for lst in [sigmav, wind_dir, h, ol]):
+    if any(len(var) != ts_len for var in [sigmav, wind_dir, h, ol]):
         # at least one list has a different length, exit with error message
         raise_ffp_exception(11, verbosity)
 
@@ -291,11 +307,27 @@ def FFP_climatology(zm=None, z0=None, umean=None, h=None, ol=None, sigmav=None, 
             if z0 is not None:
                 # Use z0
                 if ol <= 0 or ol >= oln:
+                # if any(ol <= 0) or any(ol >= oln):
                     xx = (1 - 19.0 * zm/ol)**0.25
                     psi_f = (np.log((1 + xx**2) / 2.) + 2. * np.log((1 + xx) / 2.) - 2. * np.arctan(xx) + np.pi/2)
                 elif ol > 0 and ol < oln:
+                # elif any(ol > 0) and any(ol < oln):
                     psi_f = -5.3 * zm / ol
-                if (np.log(zm / z0)-psi_f)>0:
+
+                # # EDITED TO WORK FOR ARRAYS
+                # def calc_psi_stable(ol):
+                #     psi_f =  -5.3 * zm / ol
+                #     return psi_f
+
+                # def calc_psi_neut_unstable(ol):
+                #     xx = (1 - 19.0 * zm/ol)**0.25
+                #     psi_f = (np.log((1 + xx**2) / 2.) + 2. * np.log((1 + xx) / 2.) - 2. * np.arctan(xx) + np.pi/2)
+                #     return psi_f
+
+                # psi_f = np.where((ol > 0) & (ol < oln), calc_psi_stable(ol), calc_psi_neut_unstable(ol))
+          
+                if np.log(zm / z0)-psi_f > 0:
+                # if all((np.log(zm / z0)-psi_f)>0):
                     xstar_ci_dummy = (rho * np.cos(rotated_theta) / zm * (1. - (zm / h)) / (np.log(zm / z0) - psi_f))
                     px = np.where(xstar_ci_dummy > d)
                     fstar_ci_dummy[px] = a * (xstar_ci_dummy[px] - d)**b * np.exp(-c / (xstar_ci_dummy[px] - d))
@@ -324,6 +356,15 @@ def FFP_climatology(zm=None, z0=None, umean=None, h=None, ol=None, sigmav=None, 
                 scale_const = 1E-5 * abs(zm / ol)**(-1) + 0.55
             if scale_const > 1:
                 scale_const = 1.0
+
+            # # EDITED TO WORK FOR ARRAYS
+            # ol = np.where(abs(ol)>oln, -1E6, ol)
+            # scale_const = np.where(
+            #     ol <= 0, 
+            #     1E-5 * abs(zm / ol)**(-1) + 0.80,   # ol <= 0 (convective)
+            #     1E-5 * abs(zm / ol)**(-1) + 0.55   # ol > 0 (stable)
+            # )
+            # scale_const = np.where(scale_const > 1, 1.0, scale_const)
 
             sigy_dummy = np.zeros(x_2d.shape)
             sigy_dummy[px] = (sigystar_dummy[px] / scale_const * zm * sigmav / ustar)
@@ -456,18 +497,22 @@ def check_ffp_inputs(ustar, sigmav, h, ol, wind_dir, zm, z0, umean, rslayer, ver
             raise_ffp_exception(20, verbosity)
             return False
     if float(zm)/ol <= -15.5:
+    # if any(float(zm)/ol <= -15.5):
         raise_ffp_exception(7, verbosity)
         return False
     if sigmav <= 0:
+    # if any(sigmav <= 0):
         raise_ffp_exception(8, verbosity)
         return False
     if ustar <= 0.1:
+    # if any(ustar <= 0.1):
         raise_ffp_exception(9, verbosity)
         return False
     if wind_dir > 360:
         raise_ffp_exception(10, verbosity)
         return False
     if wind_dir < 0:
+    # if any((wind_dir > 360) | (wind_dir < 0)):
         raise_ffp_exception(10, verbosity)
         return False
     return True
@@ -522,7 +567,7 @@ def get_contour_vertices(x, y, f, lev):
 #===============================================================================
 def plot_footprint(x_2d, y_2d, fs, clevs=None, show_heatmap=True, normalize=None, 
                    colormap=None, line_width=0.5, iso_labels=None):
-    '''Plot footprint function and contours if request'''
+    '''Plot footprint function and contours if requested'''
 
     import numpy as np
     import matplotlib.pyplot as plt

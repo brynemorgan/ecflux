@@ -89,7 +89,8 @@ class Footprint:
         # Set resolution
         self.resolution = self.foot_utm.rio.resolution()
         self.pixel_area = self.resolution[0] * self.resolution[1]
-        self.footprint_fraction = (self.foot_utm * self.pixel_area).sum().item()
+        # self.footprint_fraction = (self.foot_utm * self.pixel_area).sum().item()
+        self.footprint_fraction = self.calc_footprint_fraction()
         # Get contour lines in UTM coordinates
         self.contours = self.get_contour_points(self.origin_utm)
 
@@ -130,3 +131,23 @@ class Footprint:
             rs_dict = {r : list(zip(x,y)) for (r,x,y) in zip(self.ffp['rs'],self.ffp['xr'],self.ffp['yr']) if x is not None}
 
         return rs_dict
+
+    def calc_footprint_fraction(self, arr : xr.DataArray = None):
+        """
+        _summary_
+
+        Parameters
+        ----------
+        arr : xr.DataArray
+            Input array to use as mask. NaNs in this array will not be included 
+            in the total footprint.
+        """
+        if arr is None:
+            foot = self.foot_utm
+        else:
+            # Resample
+            # arr = arr.rio.reproject(self.foot_utm.rio.crs, resolution=self.resolution)
+            arr_resamp = arr.interp(x=self.foot_utm.x, y=self.foot_utm.y)
+            foot = self.foot_utm.where(arr_resamp.notnull())
+        
+        return (foot * self.pixel_area).sum().item()

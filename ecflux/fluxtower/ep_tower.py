@@ -39,11 +39,12 @@ import numpy as np
 import pandas as pd
 
 from fluxtower import FluxTower
-# from .FFP_Python import calc_footprint_FFP as calc_ffp
-# from .FFP_Python import calc_footprint_FFP_climatology as calc_ffp_clim
+from .FFP_Python import calc_footprint_FFP as calc_ffp
+from .FFP_Python import calc_footprint_FFP_climatology as calc_ffp_clim
 from .footprint import Footprint
 # from . import ffp, ffp_clim
 # from fluxtower.utils import get_recols,import_dat
+
 
 # FUNCTIONS
 
@@ -188,7 +189,7 @@ class EddyProTower(FluxTower):
                        fig=False, **kwargs) -> Footprint :
 
         # Raise an error if neither timestamp nor ffp_dict were passed.
-        if not timestamp and not ffp_dict:
+        if timestamp is None and not ffp_dict:
             raise TypeError("ffp() missing 1 of 2 required arguments: 'timestamp' or 'ffp_dict'") 
 
         # Get the params for ffp if not provided
