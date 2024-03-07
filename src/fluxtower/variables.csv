@@ -1,0 +1,24 @@
+VARIABLE,EddyPro_Name,CSI_Name,AmeriFlux_Name,Variable_Units,EddyPro_Units,CSI_Units,AmeriFlux_Units,EddyPro_Source,CSI_Source,AmeriFlux_Source
+DATETIME,date_time,TIMESTAMP,TIMESTAMP_END,%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M,%Y-%m-%d %H:%M:%S,%Y%m%d%H%M,flux,flux,flux
+u,wind_speed,wnd_spd,WS,m s-1,m s-1,m s-1,m s-1,flux,flux,flux
+T_a,TA_1_1_1,t_hmp_Avg,TA,K,K,C,C,flux,flux,flux
+p_a,air_pressure,press_mean,PA,kPa,Pa,kPa,kPa,flux,flux,flux
+h_r,RH_1_1_1,rh_hmp_Avg,RH,%,%,%,%,flux,flux,flux
+e_a,e,e_hmp_Avg,,kPa,Pa,kPa,,flux,flux,calculate
+rho_a,air_density,rho_a_mean,,kg m-3,kg m-3,kg m-3,,flux,flux,calculate
+c_p,air_heat_capacity,,,J K-1 kg-1,J K-1 kg-1,,,flux,calculate,calculate
+T_c,IRT\w*TT_C\w*_Avg,TargetTemp\w*_Avg,T_CANOPY,K,C,C,C,biomet average,biomet average,flux
+SW_IN,SWIN_1_1_1,CM3Up_Avg,SW_IN,W m-2,W m-2,W m-2,W m-2,flux,biomet,flux
+SW_OUT,SWOUT_1_1_1,CM3Dn_Avg,SW_OUT,W m-2,W m-2,W m-2,W m-2,flux,biomet,flux
+LW_IN,LWIN_1_1_1,CG3UpCo_Avg,LW_IN,W m-2,W m-2,W m-2,W m-2,flux,biomet,flux
+LW_OUT,LWOUT_1_1_1,CG3DnCo_Avg,LW_OUT,W m-2,W m-2,W m-2,W m-2,flux,biomet,flux
+R_n,RN_1_1_1,,NETRAD,W m-2,W m-2,W m-2,W m-2,flux,calculate,flux
+G,SHF_\w*,shf[a-zA-Z]*_Avg,G,W m-2,W m-2,W m-2,W m-2,flux average,biomet average,flux
+H,H,Hc,H,W m-2,W m-2,W m-2,W m-2,flux,flux,flux
+LE,LE,LE_wpl,LE,W m-2,W m-2,W m-2,W m-2,flux,flux,flux
+beta,bowen_ratio,,,,,,,flux,calculate,calculate
+ustar,u*,u_star,USTAR,m s-1,m s-1,m s-1,m s-1,flux,flux,flux
+L,L,,MO_LENGTH,m,m,,m,flux,,flux
+zeta,(z-d)/L,,ZL,,,,,flux,,flux
+tau,Tau,tau,TAU,kg m-1 s-2,kg m-1 s-2,kg m-1 s-2,kg m-1 s-2,flux,flux,flux
+P,P_RAIN_1_1_1,rainfall_Tot,P,mm,m,mm,mm,flux,biomet,flux

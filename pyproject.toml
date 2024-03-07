@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools >= 61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecflux"
+version = "0.0.1"
+description = "A package for working with flux tower data"
+authors = [
+    { name = "Bryn Morgan", email = "brynmorgan@ucsb.edu" }
+]
+license = {file = "LICENSE"}
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["eddy covariance", "flux tower", "footprint", "ecosystem fluxes", "micrometeorology"]
+requires-python = ">=3.10"
+dynamic = ["dependencies"]
+
+[project.urls]
+homepage = "https://github.com/brynemorgan/ecflux"
+# documentation = 
+# repository = "https://github.com/brynemorgan/ecflux.git"
+# changelog = "https://github.com/brynemorgan/ecflux/blob/main/CHANGELOG.md"
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["fluxtower*"]
+
+
