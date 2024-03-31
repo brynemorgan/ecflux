@@ -75,6 +75,10 @@ def get_recols(regex, col_list):
     return cols
 
 
+def cols_to_dict(df, key_col='VARIABLE', val_col='DATAVALUE'):
+
+    return pd.Series(df[val_col].values,index=df[key_col]).to_dict()
+
 # def import_dat(file, skiprows=[0,2,3], na_values='NAN', index_col='TIMESTAMP', 
 #             parse_dates=True, **kwargs):
 

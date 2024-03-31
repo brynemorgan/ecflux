@@ -1,5 +1,6 @@
 from .fluxtower import FluxTower
 from .amf_tower import AmeriFluxTower
+from .flx_tower import FluxNetTower
 from .ep_tower import EddyProTower
 from .csi_tower import CSITower
 
