@@ -59,6 +59,7 @@ class CSITower(FluxTower):
         # self.biomet = self.import_biomet()
         # data
         self.set_data()
+        self.rename_H()
         self.clean_data()
 
 
@@ -66,6 +67,10 @@ class CSITower(FluxTower):
 
         return self.import_dat(self._flux_file)        
 
+    def rename_H(self):    
+        # Temporary patch for duplicate H column in dataset.
+        # TODO: fix this in a more robust way (read in column names)
+        self.data.rename(columns={'H':'H_tc'}, inplace=True)
 
     # def import_biomet(self):
 
