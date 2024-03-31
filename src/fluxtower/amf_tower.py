@@ -39,6 +39,7 @@ import numpy as np
 import pandas as pd
 
 from fluxtower import FluxTower,utils
+from fluxtower.utils import cols_to_dict
 
 
 # VARIABLES
@@ -48,10 +49,10 @@ AMF_META_VARS = {
     'SITE_NAME' : 'SITE_NAME',
     'DATE_START' : 'FLUX_MEASUREMENTS_DATE_START',
     'DATE_END' : 'FLUX_MEASUREMENTS_DATE_END',
-    'CLIMATE_MAT' : 'MAT',
-    'CLIMATE_MAP' : 'MAP',
+    'MAT' : 'MAT',
+    'MAP' : 'MAP',
     'CLIMATE_KOEPPEN' : 'CLIMATE_KOEPPEN',
-    'VEG_IGBP' : 'IGBP',
+    'IGBP' : 'IGBP',
     'LAT' : 'LOCATION_LAT',
     'LONG' : 'LOCATION_LONG',
     'ELEV' : 'LOCATION_ELEV',
@@ -105,9 +106,9 @@ AMF_SUPP_META = {
 # Numeric columns (incomplete list)
 num_cols = ['MAT', 'MAP', 'LOCATION_LAT', 'LOCATION_LONG', 'LOCATION_ELEV', 'UTC_OFFSET', 'HEIGHTC']
 
-def cols_to_dict(df, key_col='VARIABLE', val_col='DATAVALUE'):
+# def cols_to_dict(df, key_col='VARIABLE', val_col='DATAVALUE'):
 
-    return pd.Series(df[val_col].values,index=df[key_col]).to_dict()
+#     return pd.Series(df[val_col].values,index=df[key_col]).to_dict()
 
 # Raw AMF BIF data
 AMF_BADM_DF = pd.read_csv(
@@ -116,7 +117,10 @@ AMF_BADM_DF = pd.read_csv(
         'AMF_AA-Net_BIF_CCBY4_20220811.csv'
     )
 )# AMF BADM data for all sites (dict of dicts)
-AMF_SITE_BADM = AMF_BADM_DF.groupby('SITE_ID').apply(cols_to_dict).to_dict()
+AMF_SITE_BADM = AMF_BADM_DF.groupby('SITE_ID').apply(
+    lambda group : cols_to_dict(group),
+    include_groups=False
+).to_dict()
 
 
 AMF_HEIGHT_DF = pd.read_csv(
@@ -127,8 +131,9 @@ AMF_HEIGHT_DF = pd.read_csv(
 )
 
 AMF_SITE_HEIGHT = AMF_HEIGHT_DF.groupby('Site_ID').apply(
-    cols_to_dict, key_col='Variable', val_col='Height'
-)
+    lambda group : cols_to_dict(group, key_col='Variable', val_col='Height'),
+    include_groups=False
+).to_dict()
 
 
 
@@ -153,6 +158,9 @@ class AmeriFluxTower(FluxTower):
         # metadata
         self.set_metadata()
 
+        # heights
+        self.set_heights()
+        
         # _base_file
         self._base_file = self.get_flux_file()
 
@@ -178,6 +186,16 @@ class AmeriFluxTower(FluxTower):
         self.badm = {'AMF_ID' : self.amf_id} | AMF_SITE_BADM.get(self.amf_id)
         self.badm.update((k, pd.to_numeric(v,errors='ignore')) for k, v in self.badm.items())
     
+    def set_heights(self):
+            
+        self.heights = AMF_SITE_HEIGHT.get(self.amf_id)
+    
+    def _get_all_badm(self):
+        return AMF_BADM_DF[AMF_BADM_DF.SITE_ID == self.amf_id]
+    
+    def _get_all_heights(self):
+        return AMF_HEIGHT_DF[AMF_HEIGHT_DF.Site_ID == self.amf_id]
+
     def get_flux_file(self):
 
         file = [file for file in os.listdir(self._filepath) if 'BASE' in file][0]

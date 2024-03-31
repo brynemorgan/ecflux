@@ -323,9 +323,9 @@ class EddyProTower(FluxTower):
         }
 
         self.data['FLAG'] = self.get_qc_flag()
-        self.data.FLAG[(self.data.FLAG == 0) & (self.data.P_RAIN_1_1_1 != 0)] = flag_dict.get('F_RAIN')
-        self.data.FLAG[(self.data.FLAG == 0) & (self.data.LE.isna())] = flag_dict.get('F_LE')
-        self.data.FLAG[(self.data.FLAG == 0) & (self.data.SW_IN < -10)] = flag_dict.get('F_SW')
+        self.data.loc[(self.data.FLAG == 0) & (self.data.P_RAIN_1_1_1 != 0), 'FLAG'] = flag_dict.get('F_RAIN')
+        self.data.loc[(self.data.FLAG == 0) & (self.data.LE.isna()), 'FLAG'] = flag_dict.get('F_LE')
+        self.data.loc[(self.data.FLAG == 0) & (self.data.SW_IN < -10), 'FLAG'] = flag_dict.get('F_SW')
         # self.data.FLAG[(self.data.FLAG == 0) & (self.data.EBR_perc > 0.20)] = flag_dict.get('F_EBR')
 
 

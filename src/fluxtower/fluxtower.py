@@ -255,12 +255,17 @@ class FluxTower():
                     self.data[var] = utils.convert_units(self.get_highest(var), units)
                 else:
                     self.data[var] = self.get_highest(var)
-    
+        # Calculate net radiation if necessary
+        if 'R_n' not in self.data.columns:
+            self.calc_Rn()
         # Calculate available energy
         self.data['Q_av'] = self.data.R_n - self.data.G
         # Calculate energy balance residual
         self.data['EBR'] = utils.calc_ebr(self.data.R_n, self.data.H, self.data.LE, self.data.G)
 
+    def calc_Rn(self):
+
+        self.data['R_n'] = self.data.SW_IN - self.data.SW_OUT + self.data.LW_IN - self.data.LW_OUT
 
     def attribute_ebr(self, method='all'):
 
