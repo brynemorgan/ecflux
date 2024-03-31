@@ -54,8 +54,30 @@ META = pd.read_csv(
 
 
 FLX_BADM_DICT = {}
+FLX_VAR_INFO_DICT = {}
 
 # FLX_BADM_
+def get_ts_var_info(
+    meta, rows=['SITE_ID','GROUP_ID'], cols='VARIABLE', vals='DATAVALUE',
+    order=[0, 1, -1, 2, 3, 4, 5]
+):
+    var_info = meta[meta.VARIABLE_GROUP == 'GRP_VAR_INFO'].pivot(
+        index=rows, columns=cols, values=vals
+    )
+    var_info.reset_index(inplace=True)
+    var_info = reorder_cols(var_info, order=order)
+    var_info.columns = remove_prefix(var_info)
+    return var_info
+
+
+def remove_prefix(df, prefix='VAR_INFO_'):
+    cols = [re.sub(r'^{}(.*)'.format(prefix), r'\1', col) for col in df.columns]
+    # df.columns = [re.sub(r'^{}(.*)'.format(prefix), r'\1', col) for col in df.columns]
+    return cols
+
+def reorder_cols(df, order=[0, -1, 1, 2, 3, 4]):
+    return df[[df.columns[i] for i in order]]
+
 
 
 class FluxNetTower(FluxTower):
@@ -73,9 +95,9 @@ class FluxNetTower(FluxTower):
         self._timestep = self._get_timestep()
 
         # metadata
-        self._all_badm = self.get_all_badm() #self._get_ts_metadata()
+        self._all_badm = self._get_all_badm() #self._get_ts_metadata()
         self.set_metadata()
-        self._var_info = self.get_var_info()
+        self.var_info = self._get_var_info()
         self.heights = self.get_heights()
 
         # flux
@@ -85,19 +107,6 @@ class FluxNetTower(FluxTower):
         self.set_data()
 
 
-    def _get_ts_metadata(self):
-        try:
-            return FLX_BADM_DICT[self._timestep]
-        except KeyError:
-            meta = pd.read_csv(
-                os.path.join(os.path.dirname(__file__),'metadata',self._get_meta_file()),
-            )
-            FLX_BADM_DICT[self._timestep] = meta
-            return meta
-    
-    def get_all_badm(self):
-        all_meta = self._get_ts_metadata()
-        return all_meta[all_meta.SITE_ID == self.flx_id]
     
     def set_metadata(self):
         site_badm = self._all_badm[self._all_badm.VARIABLE_GROUP != 'GRP_VAR_INFO']
@@ -109,9 +118,41 @@ class FluxNetTower(FluxTower):
         self._set_coords()
         self._set_tz()
 
-    # def _get_all_badm(self):
-    #     return AMF_BADM_DF[AMF_BADM_DF.SITE_ID == self.amf_id]
+    def _get_all_badm(self):
+        all_meta = self._get_ts_metadata()
+        return all_meta[all_meta.SITE_ID == self.flx_id]
+    
+    def _get_ts_metadata(self):
+        try:
+            return FLX_BADM_DICT[self._timestep]
+        except KeyError:
+            meta = pd.read_csv(
+                os.path.join(os.path.dirname(__file__),'metadata',self._get_meta_file()),
+            )
+            FLX_BADM_DICT[self._timestep] = meta
+            return meta
 
+
+    def _get_var_info(self, as_dict=True):
+        # var_info = self._all_badm[self._all_badm.VARIABLE_GROUP == 'GRP_VAR_INFO']
+        # var_info = var_info.pivot(index='GROUP_ID', columns='VARIABLE', values='DATAVALUE')
+        # var_info.reset_index(inplace=True)
+        # var_info = self.reorder_cols(var_info)
+        # var_info.columns = self.remove_prefix(var_info)
+        # if as_dict:
+        #     var_info = var_info.set_index('VARNAME').to_dict(orient='index')
+
+        try:
+            var_info_all = FLX_VAR_INFO_DICT[self._timestep]
+        except KeyError:
+            var_info_all = get_ts_var_info(self._get_ts_metadata())
+            FLX_VAR_INFO_DICT[self._timestep] = var_info_all
+
+        var_info = var_info_all[var_info_all.SITE_ID == self.flx_id]
+
+        if as_dict:
+            var_info = var_info.set_index('VARNAME').to_dict(orient='index')
+        return var_info
 
     def _get_meta_file(self, date='20200501'):
         return f'FLX_AA-Flx_BIF_{self._timestep}_{date}.csv'
@@ -127,32 +168,11 @@ class FluxNetTower(FluxTower):
             return None
         
     def get_heights(self):
-        if isinstance(self._var_info, pd.DataFrame):
-            return self._var_info.set_index('VARNAME').HEIGHT.to_dict()
-        elif isinstance(self._var_info, dict):
-            return {k : v['HEIGHT'] for k, v in self._var_info.items()}
-
-
-    # var_groups = meta.groupby('VARIABLE_GROUP').VARIABLE.unique().apply(list).to_dict()
-    def get_var_info(self, as_dict=True):
-        var_info = self._all_badm[self._all_badm.VARIABLE_GROUP == 'GRP_VAR_INFO']
-        var_info = var_info.pivot(index='GROUP_ID', columns='VARIABLE', values='DATAVALUE')
-        var_info.reset_index(inplace=True)
-        var_info = self.reorder_cols(var_info)
-        var_info.columns = self.remove_prefix(var_info)
-        if as_dict:
-            var_info = var_info.set_index('GROUP_ID').to_dict(orient='index')
-
-        return var_info
+        if isinstance(self.var_info, pd.DataFrame):
+            return self.var_info.set_index('VARNAME').HEIGHT.to_dict()
+        elif isinstance(self.var_info, dict):
+            return {k : v['HEIGHT'] for k, v in self.var_info.items()}
     
-
-    def remove_prefix(self, df, prefix='VAR_INFO_'):
-        cols = [re.sub(r'^{}(.*)'.format(prefix), r'\1', col) for col in df.columns]
-        # df.columns = [re.sub(r'^{}(.*)'.format(prefix), r'\1', col) for col in df.columns]
-        return cols
-
-    def reorder_cols(self, df, order=[0, -1, 1, 2, 3, 4]):
-        return df[[df.columns[i] for i in order]]
 
     def _set_coords(self):
 
@@ -195,4 +215,12 @@ class FluxNetTower(FluxTower):
         self.data = self.flux.copy()
         # self._update_var_dict()
     
+
+    def get_var_cols(self, variable=r'SWC', exclude='QC'):
+        # Pattern to match
+        pattern = r'{}_(?!.*{})'.format(variable, exclude)
+        if isinstance(self.var_info, pd.DataFrame):
+            return self.var_info[self.var_info.VARNAME.str.contains(pattern)].VARNAME.tolist()
+        elif isinstance(self.var_info, dict):
+            return utils.get_recols(pattern, self.var_info.keys())
 
