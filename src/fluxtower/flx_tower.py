@@ -263,7 +263,7 @@ class FluxNetTower(FluxTower):
         if self._timestep == 'HH':
             unit = 'mm hr-1'
         else:
-            unit = 'mm day-1'
+            unit = 'mm d-1'
         
         self._update_var_info(var='ET'+suff, unit=unit, height_var='LE' + suff)
 
