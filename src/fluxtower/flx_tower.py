@@ -237,6 +237,9 @@ class FluxNetTower(FluxTower):
             self.data['e_star' + suff + '_QC'] = self.data['TA' + suff + '_QC'].copy()
             self.data['e_a' + suff] = self.calc_vp(self.data['e_star' + suff], suff)
             self.data['e_a' + suff + '_QC'] = self.data['VPD' + suff + '_QC'].copy()
+
+            self._update_var_info(var='e_star'+suff, unit='kPa', height_var='TA'+suff)
+            self._update_var_info(var='e_a'+suff, unit='kPa', height_var='VPD'+suff)
         # return self
 
     def calc_vp(self, svp, suff = '_F_MDS'):
@@ -257,7 +260,12 @@ class FluxNetTower(FluxTower):
     def add_et_cols(self, suff='_F_MDS'):
         self.data['ET' + suff] = self.calc_et(suff)
         self.data['ET' + suff + '_QC'] = self.data['LE' + suff + '_QC'].copy()
-
+        if self._timestep == 'HH':
+            unit = 'mm hr-1'
+        else:
+            unit = 'mm day-1'
+        
+        self._update_var_info(var='ET'+suff, unit=unit, height_var='LE' + suff)
 
     def calc_et(self, suff='_F_MDS'):
 
@@ -267,7 +275,28 @@ class FluxNetTower(FluxTower):
             mult = 3600     # mm hr-1
         else:
             mult = 86400    # mm day-1
-
         et = (self.data['LE' + suff] * mult) / lambda_v  
 
         return et
+
+    def _update_var_info(self, var, unit, height_var=None):
+        if not height_var:
+            h = np.nan
+        else:
+            h = self.var_info[height_var]['HEIGHT']
+
+        new_col = {
+            'HEIGHT' : h,
+            'MODEL' : 'calculated',
+            'UNIT' : unit,
+        }
+        qc_col  = {
+            'HEIGHT' : np.nan,
+            'MODEL' : 'calculated',
+            'UNIT' : 'nondimensional',
+        }
+        
+        # TODO: Make this work when var_info is a df (currently only works for dict)
+        
+        self.var_info[var] = new_col
+        self.var_info[var + '_QC'] = qc_col
