@@ -1,0 +1,1009 @@
+Variable,Units,Description
+TIMEKEEPING,,
+TIMESTAMP,YYYYMMDDHHMM,ISO timestamp - short format
+TIMESTAMP_START,YYYYMMDDHHMM,ISO timestamp start of averaging period - short format
+TIMESTAMP_END,YYYYMMDDHHMM,ISO timestamp end of averaging period - short format
+,,
+MICROMETEOROLOGICAL,,
+TA_F_MDS,,"Air temperature, gapfilled using MDS method"
+HH,deg C,
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TA_F_MDS_QC,,Quality flag for TA_F_MDS
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+TA_F_MDS_NIGHT,,Average nighttime TA_F_MDS
+HH,,not available
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TA_F_MDS_NIGHT_SD,,Standard deviation for TA_F_MDS_NIGHT
+HH,,not available
+DD,deg C,from half-hourly data
+WW-YY,deg C,average SD from daily data
+TA_F_MDS_NIGHT_QC,,Quality flag for TA_F_MDS_NIGHT
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+TA_F_MDS_DAY,,Average daytime TA_F_MDS
+HH,,not available
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TA_F_MDS_DAY_SD,,Standard deviation for TA_F_MDS_DAY
+HH,,not available
+DD,deg C,from half-hourly data
+WW-YY,deg C,average SD from daily data
+TA_F_MDS_DAY_QC,,Quality flag for TA_F_MDS_DAY
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+TA_ERA,,"Air temperature, downscaled from ERA, linearly regressed using measured only site data"
+HH,deg C,
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TA_ERA_NIGHT,,Average nighttime TA_ERA
+HH,,not available
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TA_ERA_NIGHT_SD,,Standard deviation for TA_ERA_NIGHT
+HH,,not available
+DD,deg C,from half-hourly data
+WW-YY,deg C,average SD from daily data
+TA_ERA_DAY,,Average daytime TA_ERA
+HH,,not available
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TA_ERA_DAY_SD,,Standard deviation for TA_ERA_DAY
+HH,,not available
+DD,deg C,from half-hourly data
+WW-YY,deg C,average SD from daily data
+TA_F,,"Air temperature, consolidated from TA_F_MDS and TA_ERA"
+HH,deg C,TA_F_MDS used if TA_F_MDS_QC is 0 or 1
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TA_F_QC,,Quality flag for TA_F
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = downscaled from ERA
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+TA_F_NIGHT,,Average nighttime TA_F
+HH,,not available
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TA_F_NIGHT_SD,,Standard deviation for TA_F_NIGHT
+HH,,not available
+DD,deg C,from half-hourly data
+WW-YY,deg C,average SD from daily data
+TA_F_NIGHT_QC,,Quality flag for TA_F_NIGHT
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+TA_F_DAY,,Average daytime TA_F
+HH,,not available
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TA_F_DAY_SD,,Standard deviation for TA_F_DAY
+HH,,not available
+DD,deg C,from half-hourly data
+WW-YY,deg C,average SD from daily data
+TA_F_DAY_QC,,Quality flag for TA_F_DAY
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+SW_IN_POT,,"Shortwave radiation, incoming, potential (top of atmosphere)"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-MM,W m-2,average from daily data
+YY,,not available
+SW_IN_F_MDS,,"Shortwave radiation, incoming, gapfilled using MDS (negative values set to zero, e.g., negative values from instrumentation noise)"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+SW_IN_F_MDS_QC,,Quality flag for SW_IN_F_MDS
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+SW_IN_ERA,,"Shortwave radiation, incoming, downscaled from ERA, linearly regressed using measured only site data (negative values set to zero)"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+SW_IN_F,,"Shortwave radiation, incoming consolidated from SW_IN_F_MDS and SW_IN_ERA (negative values set to zero)"
+HH,W m-2,SW_IN_F_MDS used if SW_IN_F_MDS_QC is 0 or 1
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+SW_IN_F_QC,,Quality flag for SW_IN_F
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = downscaled from ERA
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+LW_IN_F_MDS,,"Longwave radiation, incoming, gapfilled using MDS"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+LW_IN_F_MDS_QC,,Quality flag for LW_IN_F_MDS
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+LW_IN_ERA,,"Longwave radiation, incoming, downscaled from ERA, linearly regressed using measured only site data"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+LW_IN_F,,"Longwave radiation, incoming, consolidated from LW_IN_F_MDS and LW_IN_ERA"
+HH,W m-2,LW_IN_F_MDS used if LW_IN_F_MDS_QC is 0 or 1
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+LW_IN_F_QC,,Quality flag for LW_IN_F
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = downscaled from ERA
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+LW_IN_JSB,,"Longwave radiation, incoming, calculated from TA_F_MDS, SW_IN_F_MDS, VPD_F_MDS and SW_IN_POT using the JSBACH algorithm (Sonke Zaehle)"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+LW_IN_JSB_QC,,Quality flag for LW_IN_JSB
+HH,nondimensional,"highest from TA_F_MDS_QC, SW_IN_F_MDS_QC, and VPD_F_MDS_QC, poorest quality prevails"
+DD,nondimensional,"fraction between 0-1, indicating percentage of calculated LW_IN starting from measured and good quality gapfill drivers data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage ofcalculated LW_IN starting from measured and good quality gapfill drivers data (average from daily data)"
+LW_IN_JSB_ERA,,"Longwave radiation, incoming, downscaled from ERA, linearly regressed using site level LW_IN_JSB calculated from measured only drivers"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+LW_IN_JSB_F,,"Longwave radiation, incoming, consolidated from LW_IN_JSB and LW_IN_JSB_ERA"
+HH,W m-2,LW_IN_JSB used if LW_IN_JSB_QC is 0 or 1
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+LW_IN_JSB_F_QC,,Quality flag for LW_IN_JSB_F
+HH,nondimensional,0 = calculated from measured drivers; 1 = calculated from good quality gapfilled drivers; 2: downscaled from ERA
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+VPD_F_MDS,,"Vapor Pressure Deficit, gapfilled using MDS"
+HH,hPa,
+DD,hPa,average from half-hourly data
+WW-YY,hPa,average from daily data
+VPD_F_MDS_QC,,Quality flag for VPD_F_MDS
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+VPD_ERA,,"Vapor Pressure Deficit, downscaled from ERA, linearly regressed using measured only site data"
+HH,hPa,
+DD,hPa,average from half-hourly data
+WW-YY,hPa,average from daily data
+VPD_F,,Vapor Pressure Deficit consolidated from VPD_F_MDS and VPD_ERA
+HH,hPa,VPD_F_MDS used if VPD_F_MDS_QC is 0 or 1
+DD,hPa,average from half-hourly data
+WW-YY,hPa,average from daily data
+VPD_F_QC,,Quality flag for VPD_F
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = downscaled from ERA
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+PA,,Atmospheric pressure
+HH,kPa,
+DD-YY,,not available
+PA_ERA,,"Atmospheric pressure, downscaled from ERA, linearly regressed using measured only site data"
+HH,kPa,
+DD,kPa,average from half-hourly data
+WW-YY,kPa,average from daily data
+PA_F,,Atmospheric pressure consolidated from PA and PA_ERA
+HH,kPa,PA used if measured
+DD,kPa,average from half-hourly data
+WW-YY,kPa,average from daily data
+PA_F_QC,,Quality flag for PA_F
+HH,nondimensional,0 = measured; 2 = downscaled from ERA
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured data (average from daily data)"
+P,,Precipitation
+HH,mm,
+DD-YY,,not available
+P_ERA,,"Precipitation, downscaled from ERA, linearly regressed using measured only site data"
+HH,mm,(mm per dataset resolution: either hour or half-hour)
+DD,mm d-1,sum from half-hourly data (mm per day)
+WW-MM,mm d-1,average from daily data (mm per day)
+YY,mm y-1,sum from daily data (mm per year)
+P_F,,Precipitation consolidated from P and P_ERA
+HH,mm,P used if measured (mm per dataset resolution: either hour or half-hour)
+DD,mm d-1,sum from half-hourly data (mm per day)
+WW-MM,mm d-1,average from daily data (mm per day)
+YY,mm y-1,sum from daily data (mm per year)
+P_F_QC,,Quality flag for P_F
+HH,nondimensional,0 = measured; 2 = downscaled from ERA
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured data (average from daily data)"
+WS,,Wind speed
+HH,m s-1,
+DD-YY,,not available
+WS_ERA,,"Wind speed, downscaled from ERA, linearly regressed using measured only site data"
+HH,m s-1,
+DD,m s-1,average from half-hourly data
+WW-YY,m s-1,average from daily data
+WS_F,,"Wind speed, consolidated from WS and WS_ERA"
+HH,m s-1,WS used if measured
+DD,m s-1,average from half-hourly data
+WW-YY,m s-1,average from daily data
+WS_F_QC,,Quality flag of WS_F
+HH,nondimensional,0 = measured; 2 = downscaled from ERA
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured data (average from daily data)"
+WD,,Wind direction
+HH,Decimal degrees,
+DD-YY,,not available
+RH,,"Relative humidity, range 0-100"
+HH,%,
+DD-YY,,not available
+USTAR,,Friction velocity
+HH,m s-1,
+DD,m s-1,average from half-hourly data (only days with more than 50% records available)
+WW-YY,m s-1,average from daily data (only periods with more than 50% records available)
+USTAR_QC,,Quality flag of USTAR
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of data available (measured)"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of data available (average from daily data)"
+NETRAD,,Net radiation
+HH,W m-2,
+DD,W m-2,average from half-hourly data (only days with more than 50% records available)
+WW-YY,W m-2,average from daily data (only periods with more than 50% records available)
+NETRAD_QC,,Quality flag of NETRAD
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of data available (measured)"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of data available (average from daily data)"
+PPFD_IN,,"Photosynthetic photon flux density, incoming"
+HH,ÂµmolPhoton m-2 s-1,
+DD,ÂµmolPhoton m-2 s-1,average from half-hourly data (only days with more than 50% records available)
+WW-YY,ÂµmolPhoton m-2 s-1,average from daily data (only periods with more than 50% records available)
+PPFD_IN_QC,,Quality flag of PPFD_IN
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of data available (measured)"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of data available (average from daily data)"
+PPFD_DIF,,"Photosynthetic photon flux density, diffuse incoming"
+HH,ÂµmolPhoton m-2 s-1,
+DD,ÂµmolPhoton m-2 s-1,average from half-hourly data (only days with more than 50% records available)
+WW-YY,ÂµmolPhoton m-2 s-1,average from daily data (only periods with more than 50% records available)
+PPFD_DIF_QC,,Quality flag of PPFD_DIF
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of data available (measured)"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of data available (average from daily data)"
+PPFD_OUT,,"Photosynthetic photon flux density, outgoing"
+HH,ÂµmolPhoton m-2 s-1,
+DD,ÂµmolPhoton m-2 s-1,average from half-hourly data (only days with more than 50% records available)
+WW-YY,ÂµmolPhoton m-2 s-1,average from daily data (only periods with more than 50% records available)
+PPFD_OUT_QC,,Quality flag of PPFD_OUT
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of data available (measured)"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of data available (average from daily data)"
+SW_DIF,,"Shortwave radiation, diffuse incoming"
+HH,W m-2,
+DD,W m-2,average from half-hourly data (only days with more than 50% records available)
+WW-YY,W m-2,average from daily data (only periods with more than 50% records available)
+SW_DIF_QC,,Quality flag of SW_DIF
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of data available (measured)"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of data available (average from daily data)"
+SW_OUT,,"Shortwave radiation, outgoing"
+HH,W m-2,
+DD,W m-2,average from half-hourly data (only days with more than 50% records available)
+WW-YY,W m-2,average from daily data (only periods with more than 50% records available)
+SW_OUT_QC,,Quality flag of SW_OUT
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of data available (measured)"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of data available (average from daily data)"
+LW_OUT,,"Longwave radiation, outgoing"
+HH,W m-2,
+DD,W m-2,average from half-hourly data (only days with more than 50% records available)
+WW-YY,W m-2,average from daily data (only periods with more than 50% records available)
+LW_OUT_QC,,Quality flag of LW_OUT
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of data available (measured)"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of data available (average from daily data)"
+CO2_F_MDS,,"CO2 mole fraction, gapfilled with MDS"
+HH,ÂµmolCO2 mol-1,
+DD,ÂµmolCO2 mol-1,average from half-hourly data
+WW-YY,ÂµmolCO2 mol-1,average from daily data
+CO2_F_MDS_QC,,Quality flag for CO2_F_MDS
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+TS_F_MDS_#,,"Soil temperature, gapfilled with MDS (numeric index ""#"" increases with the depth, 1 is shallowest)"
+HH,deg C,
+DD,deg C,average from half-hourly data
+WW-YY,deg C,average from daily data
+TS_F_MDS_#_QC,,Quality flag for TS_F_MDS_#
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+SWC_F_MDS_#,,"Soil water content, gapfilled with MDS (numeric index ""#"" increases with the depth, 1 is shallowest)"
+HH,%,
+DD,%,average from half-hourly data
+WW-YY,%,average from daily data
+SWC_F_MDS_#_QC,,Quality flag for SWC_F_MDS_#
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+,,
+ENERGY PROCESSING,,
+G_F_MDS,,Soil heat flux
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+G_F_MDS_QC,,Quality flag of G_F_MDS
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+LE_F_MDS,,"Latent heat flux, gapfilled using MDS method"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+LE_F_MDS_QC,,"Quality flag for LE_F_MDS, LE_CORR, LE_CORR25, and LE_CORR75."
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+LE_CORR,,"Latent heat flux, corrected LE_F_MDS by energy balance closure correction factor"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+LE_CORR_25,,"Latent heat flux, corrected LE_F_MDS by energy balance closure correction factor, 25th percentile"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,,not available
+LE_CORR_75,,"Latent heat flux, corrected LE_F_MDS by energy balance closure correction factor, 75th percentile"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,,not available
+LE_RANDUNC,,"Random uncertainty of LE, from measured only data"
+HH,W m-2,uses only data point where LE_F_MDS_QC is 0 and two hierarchical methods (see header and LE_RANDUNC_METHOD)
+DD-YY,W m-2,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+LE_RANDUNC_METHOD,,Method used to estimate the random uncertainty of LE
+HH,nondimensional,"1 = RANDUNC Method 1 (direct SD method), 2 = RANDUNC Method 2 (median SD method)"
+DD-YY,,not available
+LE_RANDUNC_N,,Number of half-hour data points used to estimate the random uncertainty of LE
+HH,nondimensional,
+DD-YY,,not available
+LE_CORR_JOINTUNC,,Joint uncertainty estimation for LE
+HH-DD,W m-2,[SQRT(LE_RANDUNC^2 + ((LE_CORR75 - LE_CORR25) / 1.349)^2)]
+WW-YY,,not available
+H_F_MDS,,"Sensible heat flux, gapfilled using MDS method"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+H_F_MDS_QC,,"Quality flag for H_F_MDS, H_CORR, H_CORR25, and H_CORR75."
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+H_CORR,,"Sensible heat flux, corrected H_F_MDS by energy balance closure correction factor"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,W m-2,average from daily data
+H_CORR_25,,"Sensible heat flux, corrected H_F_MDS by energy balance closure correction factor, 25th percentile"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,,not available
+H_CORR_75,,"Sensible heat flux, corrected H_F_MDS by energy balance closure correction factor, 75th percentile"
+HH,W m-2,
+DD,W m-2,average from half-hourly data
+WW-YY,,not available
+H_RANDUNC,,"Random uncertainty of H, from measured only data"
+HH,W m-2,uses only data point where H_F_MDS_QC is 0 and two hierarchical methods (see header and H_RANDUNC_METHOD)
+DD-YY,W m-2,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+H_RANDUNC_METHOD,,Method used to estimate the random uncertainty of H
+HH,nondimensional,"1 = RANDUNC Method 1 (direct SD method), 2 = RANDUNC Method 2 (median SD method)"
+DD-YY,,not available
+H_RANDUNC_N,,Number of half-hour data points used to estimate the random uncertainty of H
+HH,nondimensional,
+DD-YY,,not available
+H_CORR_JOINTUNC,,Joint uncertainty estimation for H
+HH-DD,W m-2,[SQRT(H_RANDUNC^2 + ((H_CORR75 - H_CORR25) / 1.349)^2)]
+WW-YY,,not available
+EBC_CF_N,,Number of data points used to calculate energy closure balance correction factor. Driver data points within sliding window (ECB_CF Method 1) or number of ECB_CF data points (for ECB_CF Methods 2 and 3)
+HH,nondimensional,"for ECB_CF Method 1 (minimum 5, maximum 93)"
+DD,nondimensional,"for ECB_CF Method 1 (minimum 5, maximum 15)"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentages of half-hours used with respect to theoretical maximum number of half hours"
+EBC_CF_METHOD,,Method used to calculate the energy balance closure correction factor
+HH-YY,nondimensional,"1 = ECB_CF Method 1, 2 = ECB_CF Method 2, 3 = ECB_CF Method 3. See general description for details"
+,,
+NET ECOSYSTEM EXCHANGE,,
+NIGHT,,Flag indicating nighttime interval based on SW_IN_POT
+HH,nondimensional,"0 = daytime, 1 = nighttime"
+DD-YY,,not available
+NIGHT_D,,"Number of half hours classified as nighttime in the period, i.e., when SW_IN_POT is 0"
+HH,,not available
+DD,nondimensional,number of half-hours
+WW-MM,nondimensional,number of halfhours (average of the daily data)
+YY,,not available
+DAY_D,,"Number of half hours classified as daytime in the period, i.e., when SW_IN_POT is greater than 0"
+HH,,not available
+DD,nondimensional,number of half-hours
+WW-MM,nondimensional,number of halfhours (average of the daily data)
+YY,,not available
+NIGHT_RANDUNC_N,,Number of half hours classified as nighttime and used to calculate the aggregated random uncertainty
+HH,,not available
+DD,nondimensional,number of half-hours
+WW-YY,nondimensional,number of halfhours (average of the daily data)
+DAY_RANDUNC_N,,Number of half hours classified as daytime and used to calculate the aggregated random uncertainty
+HH,,not available
+DD,nondimensional,number of half-hours
+WW-YY,nondimensional,number of halfhours (average of the daily data)
+NEE_CUT_REF,,"Net Ecosystem Exchange, using Constant Ustar Threshold (CUT) across years, reference selected on the basis of the model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+NEE_VUT_REF,,"Net Ecosystem Exchange, using Variable Ustar Threshold (VUT) for each year, reference selected on the basis of the model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+NEE_CUT_REF_QC,,Quality flag for NEE_CUT_REF
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_VUT_REF_QC,,Quality flag for NEE_VUT_REF
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_CUT_REF_RANDUNC,,"Random uncertainty for NEE_CUT_REF, from measured only data"
+HH,ÂµmolCO2 m-2 s-1,uses only data points where NEE_CUT_REF_QC is 0 and two hierarchical methods - see header and NEE_CUT_REF_RANDUNC_METHOD
+DD-MM,gC m-2 d-1,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+YY,gC m-2 y-1,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+NEE_VUT_REF_RANDUNC,,"Random uncertainty for NEE_VUT_REF, from measured only data"
+HH,ÂµmolCO2 m-2 s-1,uses only data points where NEE_VUT_REF_QC is 0 and two hierarchical methods - see header and NEE_VUT_REF_RANDUNC_METHOD
+DD-MM,gC m-2 d-1,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+YY,gC m-2 y-1,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+NEE_CUT_REF_RANDUNC_METHOD,,Method used to estimate the random uncertainty of NEE_CUT_REF
+HH,nondimensional,"1 = RANDUNC Method 1 (direct SD method), 2 = RANDUNC Method 2 (median SD method)"
+DD-YY,,not available
+NEE_VUT_REF_RANDUNC_METHOD,,Method used to estimate the random uncertainty of NEE_VUT_REF
+HH,nondimensional,"1 = RANDUNC Method 1 (direct SD method), 2 = RANDUNC Method 2 (median SD method)"
+DD-YY,,not available
+NEE_CUT_REF_RANDUNC_N,,Number of data points used to estimate the random uncertainty of NEE_CUT_REF
+HH,nondimensional,
+DD-YY,,not available
+NEE_VUT_REF_RANDUNC_N,,Number of data points used to estimate the random uncertainty of NEE_VUT_REF
+HH,nondimensional,
+DD-YY,,not available
+NEE_CUT_REF_JOINTUNC,,"Joint uncertainty estimation for NEE_CUT_REF, including random uncertainty and USTAR filtering uncertainty"
+HH,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_REF_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each half-hour
+DD,gC m-2 d-1,[SQRT(NEE_CUT_REF_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each day
+WW,gC m-2 d-1,[SQRT(NEE_CUT_REF_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each week
+MM,gC m-2 d-1,[SQRT(NEE_CUT_REF_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each month
+YY,gC m-2 y-1,[SQRT(NEE_CUT_REF_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each year
+NEE_VUT_REF_JOINTUNC,,"Joint uncertainty estimation for NEE_VUT_REF, including random uncertainty and USTAR filtering uncertainty"
+HH,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_REF_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each half-hour
+DD,gC m-2 d-1,[SQRT(NEE_VUT_REF_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each day
+WW,gC m-2 d-1,[SQRT(NEE_VUT_REF_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each week
+MM,gC m-2 d-1,[SQRT(NEE_VUT_REF_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each month
+YY,gC m-2 y-1,[SQRT(NEE_VUT_REF_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each year
+NEE_CUT_USTAR50,,"Net Ecosystem Exchange, using Constant Ustar Threshold (CUT) across years, from 50 percentile of USTAR threshold"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+NEE_VUT_USTAR50,,"Net Ecosystem Exchange, using Variable Ustar Threshold (VUT) for each year, from 50 percentile of USTAR threshold"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+NEE_CUT_USTAR50_QC,,Quality flag for NEE_CUT_USTAR50
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_VUT_USTAR50_QC,,Quality flag for NEE_VUT_USTAR50
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_CUT_USTAR50_RANDUNC,,"Random uncertainty for NEE_CUT_USTAR50, from measured only data"
+HH,ÂµmolCO2 m-2 s-1,uses only data points where NEE_CUT_USTAR50_QC is 0 and two hierarchical methods - see header and NEE_CUT_USTAR50_RANDUNC_METHOD
+DD-MM,gC m-2 d-1,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+YY,gC m-2 y-1,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+NEE_VUT_USTAR50_RANDUNC,,"Random uncertainty for NEE_VUT_USTAR50, from measured only data"
+HH,ÂµmolCO2 m-2 s-1,uses only data points where NEE_VUT_USTAR50_QC is 0 and two hierarchical methods see header and NEE_VUT_USTAR50_RANDUNC_METHOD
+DD-MM,gC m-2 d-1,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+YY,gC m-2 y-1,"from random uncertainty of individual half-hours (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used"
+NEE_CUT_USTAR50_RANDUNC_METHOD,,Method used to estimate the random uncertainty of NEE_CUT_USTAR50
+HH,nondimensional,"1 = RANDUNC Method 1 (direct SD method), 2 = RANDUNC Method 2 (median SD method)"
+DD-YY,,not available
+NEE_VUT_USTAR50_RANDUNC_METHOD,,Method used to estimate the random uncertainty of NEE_VUT_USTAR50
+HH,nondimensional,"1 = RANDUNC Method 1 (direct SD method), 2 = RANDUNC Method 2 (median SD method)"
+DD-YY,,not available
+NEE_CUT_USTAR50_RANDUNC_N,,Number of half-hour data points used to estimate the random uncertainty of NEE_CUT_USTAR50
+HH,nondimensional,
+DD-YY,,not available
+NEE_VUT_USTAR50_RANDUNC_N,,Number of half-hour data points used to estimate the random uncertainty of NEE_VUT_USTAR50
+HH,nondimensional,
+DD-YY,,not available
+NEE_CUT_USTAR50_JOINTUNC,,"Joint uncertainty estimation for NEE_CUT_USTAR50, including random uncertainty and USTAR filtering uncertainty"
+HH,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_USTAR50_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each half-hour
+DD,gC m-2 d-1,[SQRT(NEE_CUT_USTAR50_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each day
+WW,gC m-2 d-1,[SQRT(NEE_CUT_USTAR50_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each week
+MM,gC m-2 d-1,[SQRT(NEE_CUT_USTAR50_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each month
+YY,gC m-2 y-1,[SQRT(NEE_CUT_USTAR50_RANDUNC^2 + ((NEE_CUT_84 - NEE_CUT_16) / 2)^2)] for each year
+NEE_VUT_USTAR50_JOINTUNC,,"Joint uncertainty estimation for NEE_VUT_USTAR50, including random uncertainty and USTAR filtering uncertainty"
+HH,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_USTAR50_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each half-hour
+DD,gC m-2 d-1,[SQRT(NEE_VUT_USTAR50_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each day
+WW,gC m-2 d-1,[SQRT(NEE_VUT_USTAR50_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each week
+MM,gC m-2 d-1,[SQRT(NEE_VUT_USTAR50_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each month
+YY,gC m-2 y-1,[SQRT(NEE_VUT_USTAR50_RANDUNC^2 + ((NEE_VUT_84 - NEE_VUT_16) / 2)^2)] for each year
+NEE_CUT_MEAN,,"Net Ecosystem Exchange, using Constant Ustar Threshold (CUT) across years, average from 40 NEE_CUT_XX versions"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly NEE_CUT_XX
+DD,gC m-2 d-1,average from 40 daily NEE_CUT_XX
+WW,gC m-2 d-1,average from 40 weekly NEE_CUT_XX
+MM,gC m-2 d-1,average from 40 monthly NEE_CUT_XX
+YY,gC m-2 y-1,average from 40 yearly NEE_CUT_XX
+NEE_VUT_MEAN,,"Net Ecosystem Exchange, using Variable Ustar Threshold (VUT) for each year, average from 40 NEE_VUT_XX versions"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly NEE_CUT_XX
+DD,gC m-2 d-1,average from 40 daily NEE_CUT_XX
+WW,gC m-2 d-1,average from 40 weekly NEE_CUT_XX
+MM,gC m-2 d-1,average from 40 monthly NEE_CUT_XX
+YY,gC m-2 y-1,average from 40 yearly NEE_CUT_XX
+NEE_CUT_MEAN_QC,,"Quality flag for NEE_CUT_MEAN, fraction between 0-1 indicating percentage of good quality data"
+HH,nondimensional,average of percentages of good data (NEE_CUT_XX_QC is 0 or 1) from 40 NEE_CUT_XX_QC
+DD-YY,nondimensional,average of 40 NEE_CUT_XX_QC for the period
+NEE_VUT_MEAN_QC,,"Quality flag for NEE_VUT_MEAN, fraction between 0-1 indicating percentage of good quality data"
+HH,nondimensional,average of percentages of good data (NEE_VUT_XX_QC is 0 or 1) from 40 NEE_VUT_XX_QC
+DD-YY,nondimensional,average of 40 NEE_VUT_XX_QC for the period
+NEE_CUT_SE,,"Standard Error for NEE_CUT, calculated as SD(NEE_CUT_XX) / SQRT(40)"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly NEE_CUT_XX
+DD,gC m-2 d-1,SE from 40 daily NEE_CUT_XX
+WW,gC m-2 d-1,SE from 40 weekly NEE_CUT_XX
+MM,gC m-2 d-1,SE from 40 monthly NEE_CUT_XX
+YY,gC m-2 y-1,SE from 40 yearly NEE_CUT_XX
+NEE_VUT_SE,,"Standard Error for NEE_VUT, calculated as SD(NEE_VUT_XX) / SQRT(40)"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly NEE_CUT_XX
+DD,gC m-2 d-1,SE from 40 daily NEE_CUT_XX
+WW,gC m-2 d-1,SE from 40 weekly NEE_CUT_XX
+MM,gC m-2 d-1,SE from 40 monthly NEE_CUT_XX
+YY,gC m-2 y-1,SE from 40 yearly NEE_CUT_XX
+NEE_CUT_XX,,"NEE CUT percentiles (approx. percentile indicated by XX, see doc.) calculated from the 40 estimates aggregated at the different time resolutions -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,ÂµmolCO2 m-2 s-1,XXth percentile from 40 half-hourly NEE_CUT_XX
+DD,gC m-2 d-1,XXth percentile from 40 daily NEE_CUT_XX
+WW,gC m-2 d-1,XXth percentile from 40 weekly NEE_CUT_XX
+MM,gC m-2 d-1,XXth percentile from 40 monthly NEE_CUT_XX
+YY,gC m-2 y-1,XXth percentile from 40 yearly NEE_CUT_XX
+NEE_VUT_XX,,"NEE VUT percentiles (approx. percentile indicated by XX, see doc.) calculated from the 40 estimates aggregated at the different time resolutions -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,ÂµmolCO2 m-2 s-1,XXth percentile from 40 half-hourly NEE_VUT_XX
+DD,gC m-2 d-1,XXth percentile from 40 daily NEE_VUT_XX
+WW,gC m-2 d-1,XXth percentile from 40 weekly NEE_VUT_XX
+MM,gC m-2 d-1,XXth percentile from 40 monthly NEE_VUT_XX
+YY,gC m-2 y-1,XXth percentile from 40 yearly NEE_VUT_XX
+NEE_CUT_XX_QC,,"Quality flag for NEE_CUT_XX -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_VUT_XX_QC,,"Quality flag for NEE_VUT_XX -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,nondimensional,0 = measured; 1 = good quality gapfill; 2 = medium; 3 = poor
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_CUT_REF_NIGHT,,"Average nighttime NEE, from NEE_CUT_REF"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,average from half-hourly data (where NIGHT is 1)
+WW-YY,ÂµmolCO2 m-2 s-1,average from daily data
+NEE_VUT_REF_NIGHT,,"Average nighttime NEE, from NEE_VUT_REF"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,average from half-hourly data (where NIGHT is 1)
+WW-YY,ÂµmolCO2 m-2 s-1,average from daily data
+NEE_CUT_REF_NIGHT_SD,,"Standard Deviation of the nighttime NEE, from the NEE_CUT_REF"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,from half-hourly data (where NIGHT is 1)
+WW-YY,ÂµmolCO2 m-2 s-1,from daily data
+NEE_VUT_REF_NIGHT_SD,,"Standard Deviation of the nighttime NEE, from the NEE_VUT_REF"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,from half-hourly data (where NIGHT is 1)
+WW-YY,ÂµmolCO2 m-2 s-1,from daily data
+NEE_CUT_REF_NIGHT_QC,,Quality flag for NEE_CUT_REF_NIGHT
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_VUT_REF_NIGHT_QC,,Quality flag for NEE_VUT_REF_NIGHT
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_CUT_REF_NIGHT_RANDUNC,,"Random uncertainty of NEE_CUT_REF_NIGHT, from the random uncertainty of the single nighttime half-hours"
+HH,,not available
+DD-YY,ÂµmolCO2 m-2 s-1,"from random uncertainty of individual half-hours where NIGHT is 1 (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used to calculate the nighttime aggregation in the day."
+NEE_VUT_REF_NIGHT_RANDUNC,,"Random uncertainty of NEE_VUT_REF_NIGHT, from the random uncertainty of the single nighttime half-hours"
+HH,,not available
+DD-YY,ÂµmolCO2 m-2 s-1,"from random uncertainty of individual half-hours where NIGHT is 1 (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used to calculate the nighttime aggregation in the day."
+NEE_CUT_REF_NIGHT_JOINTUNC,,"Joint uncertainty estimation for NEE_CUT_REF_NIGHT, including random uncertainty and USTAR filtering uncertainty"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_REF_NIGHT_RANDUNC^2 + ((NEE_CUT_84_NIGHT - NEE_CUT_16_NIGHT) / 2)^2)] for each day
+WW,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_REF_NIGHT_RANDUNC^2 + ((NEE_CUT_84_NIGHT - NEE_CUT_16_NIGHT) / 2)^2)] for each week
+MM,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_REF_NIGHT_RANDUNC^2 + ((NEE_CUT_84_NIGHT - NEE_CUT_16_NIGHT) / 2)^2)] for each month
+YY,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_REF_NIGHT_RANDUNC^2 + ((NEE_CUT_84_NIGHT - NEE_CUT_16_NIGHT) / 2)^2)] for each year
+NEE_VUT_REF_NIGHT_JOINTUNC,,"Joint uncertainty estimation for NEE_VUT_REF_NIGHT, including random uncertainty and USTAR filtering uncertainty"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_REF_NIGHT_RANDUNC^2 + ((NEE_VUT_84_NIGHT - NEE_VUT_16_NIGHT) / 2)^2)] for each day
+WW,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_REF_NIGHT_RANDUNC^2 + ((NEE_VUT_84_NIGHT - NEE_VUT_16_NIGHT) / 2)^2)] for each week
+MM,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_REF_NIGHT_RANDUNC^2 + ((NEE_VUT_84_NIGHT - NEE_VUT_16_NIGHT) / 2)^2)] for each month
+YY,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_REF_NIGHT_RANDUNC^2 + ((NEE_VUT_84_NIGHT - NEE_VUT_16_NIGHT) / 2)^2)] for each year
+NEE_CUT_REF_DAY,,"Average daytime NEE, from NEE_CUT_REF"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,average from half-hourly data (where NIGHT is 0)
+WW-YY,ÂµmolCO2 m-2 s-1,average from daily data
+NEE_VUT_REF_DAY,,"Average daytime NEE, from NEE_VUT_REF"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,average from half-hourly data (where NIGHT is 0)
+WW-YY,ÂµmolCO2 m-2 s-1,average from daily data
+NEE_CUT_REF_DAY_SD,,"Standard Deviation of the daytime NEE, from the NEE_CUT_REF"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,from half-hourly data (where NIGHT is 0)
+WW-YY,ÂµmolCO2 m-2 s-1,from daily data
+NEE_VUT_REF_DAY_SD,,"Standard Deviation of the daytime NEE, from the NEE_VUT_REF"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,from half-hourly data (where NIGHT is 0)
+WW-YY,ÂµmolCO2 m-2 s-1,from daily data
+NEE_CUT_REF_DAY_QC,,Quality flag for NEE_CUT_REF_DAY
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_VUT_REF_DAY_QC,,Quality flag for NEE_VUT_REF_DAY
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_CUT_REF_DAY_RANDUNC,,"Random uncertainty of NEE_CUT_REF_DAY, from the random uncertainty of the single daytime half-hours"
+HH,,not available
+DD-YY,ÂµmolCO2 m-2 s-1,"from random uncertainty of individual half-hours where NIGHT is 0 (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used to calculate the daytime aggregation in the day."
+NEE_VUT_REF_DAY_RANDUNC,,"Random uncertainty of NEE_VUT_REF_DAY, from the random uncertainty of the single daytime half-hours"
+HH,,not available
+DD-YY,ÂµmolCO2 m-2 s-1,"from random uncertainty of individual half-hours where NIGHT is 0 (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used to calculate the daytime aggregation in the day."
+NEE_CUT_REF_DAY_JOINTUNC,,"Joint uncertainty estimation for NEE_CUT_REF_DAY, including random uncertainty and USTAR filtering uncertainty"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_REF_DAY_RANDUNC^2 + ((NEE_CUT_84_DAY - NEE_CUT_16_DAY) / 2)^2)] for each day
+WW,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_REF_DAY_RANDUNC^2 + ((NEE_CUT_84_DAY - NEE_CUT_16_DAY) / 2)^2)] for each week
+MM,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_REF_DAY_RANDUNC^2 + ((NEE_CUT_84_DAY - NEE_CUT_16_DAY) / 2)^2)] for each month
+YY,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_REF_DAY_RANDUNC^2 + ((NEE_CUT_84_DAY - NEE_CUT_16_DAY) / 2)^2)] for each year
+NEE_VUT_REF_DAY_JOINTUNC,,"Joint uncertainty estimation for NEE_VUT_REF_DAY, including random uncertainty and USTAR filtering uncertainty"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_REF_DAY_RANDUNC^2 + ((NEE_VUT_84_DAY - NEE_VUT_16_DAY) / 2)^2)] for each day
+WW,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_REF_DAY_RANDUNC^2 + ((NEE_VUT_84_DAY - NEE_VUT_16_DAY) / 2)^2)] for each week
+MM,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_REF_DAY_RANDUNC^2 + ((NEE_VUT_84_DAY - NEE_VUT_16_DAY) / 2)^2)] for each month
+YY,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_REF_DAY_RANDUNC^2 + ((NEE_VUT_84_DAY - NEE_VUT_16_DAY) / 2)^2)] for each year
+NEE_CUT_USTAR50_NIGHT,,"Average nighttime NEE, from NEE_CUT_USTAR50"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,average from half-hourly data (where NIGHT is 1)
+WW-YY,ÂµmolCO2 m-2 s-1,average from daily data
+NEE_VUT_USTAR50_NIGHT,,"Average nighttime NEE, from NEE_VUT_USTAR50"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,average from half-hourly data (where NIGHT is 1)
+WW-YY,ÂµmolCO2 m-2 s-1,average from daily data
+NEE_CUT_USTAR50_NIGHT_SD,,"Standard Deviation of the nighttime NEE, from the NEE_CUT_USTAR50"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,from half-hourly data (where NIGHT is 1)
+WW-YY,ÂµmolCO2 m-2 s-1,from daily data
+NEE_VUT_USTAR50_NIGHT_SD,,"Standard Deviation of the nighttime NEE, from the NEE_VUT_USTAR50"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,from half-hourly data (where NIGHT is 1)
+WW-YY,ÂµmolCO2 m-2 s-1,from daily data
+NEE_CUT_USTAR50_NIGHT_QC,,Quality flag for NEE_CUT_USTAR50_NIGHT
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_VUT_USTAR50_NIGHT_QC,,Quality flag for NEE_VUT_USTAR50_NIGHT
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_CUT_USTAR50_NIGHT_RANDUNC,,"Random uncertainty of NEE_CUT_USTAR50_NIGHT, from the random uncertainty of the single nighttime half-hours"
+HH,,not available
+DD-YY,ÂµmolCO2 m-2 s-1,"from random uncertainty of individual half-hours where NIGHT is 1 (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used to calculate the nighttime aggregation in the day."
+NEE_VUT_USTAR50_NIGHT_RANDUNC,,"Random uncertainty of NEE_VUT_USTAR50_NIGHT, from the random uncertainty of the single nighttime half-hours"
+HH,,not available
+DD-YY,ÂµmolCO2 m-2 s-1,"from random uncertainty of individual half-hours where NIGHT is 1 (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used to calculate the nighttime aggregation in the day."
+NEE_CUT_USTAR50_NIGHT_JOINTUNC,,"Joint uncertainty estimation for NEE_CUT_USTAR50_NIGHT, including random uncertainty and USTAR filtering uncertainty"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_USTAR50_NIGHT_RANDUNC^2 + ((NEE_CUT_84_NIGHT - NEE_CUT_16_NIGHT) / 2)^2)] for each day
+WW,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_USTAR50_NIGHT_RANDUNC^2 + ((NEE_CUT_84_NIGHT - NEE_CUT_16_NIGHT) / 2)^2)] for each week
+MM,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_USTAR50_NIGHT_RANDUNC^2 + ((NEE_CUT_84_NIGHT - NEE_CUT_16_NIGHT) / 2)^2)] for each month
+YY,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_USTAR50_NIGHT_RANDUNC^2 + ((NEE_CUT_84_NIGHT - NEE_CUT_16_NIGHT) / 2)^2)] for each year
+NEE_VUT_USTAR50_NIGHT_JOINTUNC,,"Joint uncertainty estimation for NEE_VUT_USTAR50_NIGHT, including random uncertainty and USTAR filtering uncertainty"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_USTAR50_NIGHT_RANDUNC^2 + ((NEE_VUT_84_NIGHT - NEE_VUT_16_NIGHT) / 2)^2)] for each day
+WW,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_USTAR50_NIGHT_RANDUNC^2 + ((NEE_VUT_84_NIGHT - NEE_VUT_16_NIGHT) / 2)^2)] for each week
+MM,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_USTAR50_NIGHT_RANDUNC^2 + ((NEE_VUT_84_NIGHT - NEE_VUT_16_NIGHT) / 2)^2)] for each month
+YY,ÂµmolCO2 m-2 s-1,[SQRT(NEE_VUT_USTAR50_NIGHT_RANDUNC^2 + ((NEE_VUT_84_NIGHT - NEE_VUT_16_NIGHT) / 2)^2)] for each year
+NEE_CUT_USTAR50_DAY,,"Average daytime NEE, from NEE_CUT_USTAR50"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,average from half-hourly data (where NIGHT is 0)
+WW-YY,ÂµmolCO2 m-2 s-1,average from daily data
+NEE_VUT_USTAR50_DAY,,"Average daytime NEE, from NEE_VUT_USTAR50"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,average from half-hourly data (where NIGHT is 0)
+WW-YY,ÂµmolCO2 m-2 s-1,average from daily data
+NEE_CUT_USTAR50_DAY_SD,,"Standard Deviation of the daytime NEE, from the NEE_CUT_USTAR50"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,from half-hourly data (where NIGHT is 0)
+WW-YY,ÂµmolCO2 m-2 s-1,from daily data
+NEE_VUT_USTAR50_DAY_SD,,"Standard Deviation of the daytime NEE, from the NEE_VUT_USTAR50"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,from half-hourly data (where NIGHT is 0)
+WW-YY,ÂµmolCO2 m-2 s-1,from daily data
+NEE_CUT_USTAR50_DAY_QC,,Quality flag for NEE_CUT_USTAR50_DAY
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_VUT_USTAR50_DAY_QC,,Quality flag for NEE_VUT_USTAR50_DAY
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_CUT_USTAR50_DAY_RANDUNC,,"Random uncertainty of NEE_CUT_USTAR50_DAY, from the random uncertainty of the single daytime half-hours"
+HH,,not available
+DD-YY,ÂµmolCO2 m-2 s-1,"from random uncertainty of individual half-hours where NIGHT is 0 (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used to calculate the daytime aggregation in the day."
+NEE_VUT_USTAR50_DAY_RANDUNC,,"Random uncertainty of NEE_VUT_USTAR50_DAY, from the random uncertainty of the single daytime half-hours"
+HH,,not available
+DD-YY,ÂµmolCO2 m-2 s-1,"from random uncertainty of individual half-hours where NIGHT is 0 (rand(i)) = [SQRT(SUM(rand(i)^2)) / n], where n is the number of half-hours used to calculate the daytime aggregation in the day."
+NEE_CUT_USTAR50_DAY_JOINTUNC,,"Joint uncertainty estimation for NEE_CUT_USTAR50_DAY, including random uncertainty and USTAR filtering uncertainty"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_USTAR50_DAY_RANDUNC^2 + ((NEE_CUT_84_DAY - NEE_CUT_16_DAY) / 2)^2)] for each day
+WW,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_USTAR50_DAY_RANDUNC^2 + ((NEE_CUT_84_DAY - NEE_CUT_16_DAY) / 2)^2)] for each week
+MM,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_USTAR50_DAY_RANDUNC^2 + ((NEE_CUT_84_DAY - NEE_CUT_16_DAY) / 2)^2)] for each month
+YY,ÂµmolCO2 m-2 s-1,[SQRT(NEE_CUT_USTAR50_DAY_RANDUNC^2 + ((NEE_CUT_84_DAY - NEE_CUT_16_DAY) / 2)^2)] for each year
+NEE_VUT_USTAR50_DAY_JOINTUNC,,"Joint uncertainty estimation for NEE_VUT_USTAR50_DAY, including random uncertainty and USTAR filtering uncertainty"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,SQRT(NEE_VUT_USTAR50_DAY_RANDUNC^2 + ((NEE_VUT_84_DAY - NEE_VUT_16_DAY) / 2)^2) for each day
+WW,ÂµmolCO2 m-2 s-1,SQRT(NEE_VUT_USTAR50_DAY_RANDUNC^2 + ((NEE_VUT_84_DAY - NEE_VUT_16_DAY) / 2)^2) for each week
+MM,ÂµmolCO2 m-2 s-1,SQRT(NEE_VUT_USTAR50_DAY_RANDUNC^2 + ((NEE_VUT_84_DAY - NEE_VUT_16_DAY) / 2)^2) for each month
+YY,ÂµmolCO2 m-2 s-1,SQRT(NEE_VUT_USTAR50_DAY_RANDUNC^2 + ((NEE_VUT_84_DAY - NEE_VUT_16_DAY) / 2)^2) for each year
+NEE_CUT_XX_NIGHT,,"NEE CUT nighttime percentiles (approx. percentile indicated by XX, see doc.) calculated from the 40 estimates aggregated at the different time resolutions -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,XXth nighttime percentile from 40 daily NEE_CUT_XX_NIGHT
+WW,ÂµmolCO2 m-2 s-1,XXth nighttime percentile from 40 weekly NEE_CUT_XX_NIGHT
+MM,ÂµmolCO2 m-2 s-1,XXth nighttime percentile from 40 monthly NEE_CUT_XX_NIGHT
+YY,ÂµmolCO2 m-2 s-1,XXth nighttime percentile from 40 yearly NEE_CUT_XX_NIGHT
+NEE_VUT_XX_NIGHT,,"NEE VUT nighttime percentiles (approx. percentile indicated by XX, see doc.) calculated from the 40 estimates aggregated at the different time resolutions -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,XXth nighttime percentile from 40 daily NEE_VUT_XX_NIGHT
+WW,ÂµmolCO2 m-2 s-1,XXth nighttime percentile from 40 weekly NEE_VUT_XX_NIGHT
+MM,ÂµmolCO2 m-2 s-1,XXth nighttime percentile from 40 monthly NEE_VUT_XX_NIGHT
+YY,ÂµmolCO2 m-2 s-1,XXth nighttime percentile from 40 yearly NEE_VUT_XX_NIGHT
+NEE_CUT_XX_NIGHT_QC,,"Quality flag for NEE_CUT_XX_NIGHT -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_VUT_XX_NIGHT_QC,,"Quality flag for NEE_VUT_XX_NIGHT -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_CUT_XX_DAY,,"NEE CUT daytime percentiles (approx. percentile indicated by XX, see doc.) calculated from the 40 estimates aggregated at the different time resolutions -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,XXth daytime percentile from 40 daily NEE_CUT_XX_DAY
+WW,ÂµmolCO2 m-2 s-1,XXth daytime percentile from 40 weekly NEE_CUT_XX_DAY
+MM,ÂµmolCO2 m-2 s-1,XXth daytime percentile from 40 monthly NEE_CUT_XX_DAY
+YY,ÂµmolCO2 m-2 s-1,XXth daytime percentile from 40 yearly NEE_CUT_XX_DAY
+NEE_VUT_XX_DAY,,"NEE VUT daytime percentiles (approx. percentile indicated by XX, see doc.) calculated from the 40 estimates aggregated at the different time resolutions -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,,not available
+DD,ÂµmolCO2 m-2 s-1,XXth daytime percentile from 40 daily NEE_VUT_XX_DAY
+WW,ÂµmolCO2 m-2 s-1,XXth daytime percentile from 40 weekly NEE_VUT_XX_DAY
+MM,ÂµmolCO2 m-2 s-1,XXth daytime percentile from 40 monthly NEE_VUT_XX_DAY
+YY,ÂµmolCO2 m-2 s-1,XXth daytime percentile from 40 yearly NEE_VUT_XX_DAY
+NEE_CUT_XX_DAY_QC,,"Quality flag for NEE_CUT_XX_DAY -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+NEE_VUT_XX_DAY_QC,,"Quality flag for NEE_VUT_XX_DAY -- XX = 05, 16, 25, 50, 75, 84, 95"
+HH,,not available
+DD,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data"
+WW-YY,nondimensional,"fraction between 0-1, indicating percentage of measured and good quality gapfill data (average from daily data)"
+,,
+PARTITIONING,,
+NIGHTTIME,,
+RECO_NT_VUT_REF,,"Ecosystem Respiration, from Nighttime partitioning method, reference selected from RECO versions using model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_NT_VUT_USTAR50,,"Ecosystem Respiration, from Nighttime partitioning method, based on NEE_VUT_USTAR50"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_NT_VUT_MEAN,,"Ecosystem Respiration, from Nighttime partitioning method, average from RECO versions, each from corresponding NEE_VUT_XX version"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly RECO_NT_VUT_XX
+DD,gC m-2 d-1,average from 40 daily RECO_NT_VUT_XX
+WW,gC m-2 d-1,average from 40 weekly RECO_NT_VUT_XX
+MM,gC m-2 d-1,average from 40 monthly RECO_NT_VUT_XX
+YY,gC m-2 y-1,average from 40 yearly RECO_NT_VUT_XX
+RECO_NT_VUT_SE,,"Standard Error for Ecosystem Respiration, calculated as  (SD(RECO_NT_VUT_XX) / SQRT(40))"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly RECO_NT_CUT_XX
+DD,gC m-2 d-1,SE from 40 daily RECO_NT_VUT_XX
+WW,gC m-2 d-1,SE from 40 weekly RECO_NT_VUT_XX
+MM,gC m-2 d-1,SE from 40 monthly RECO_NT_VUT_XX
+YY,gC m-2 y-1,SE from 40 yearly RECO_NT_VUT_XX
+RECO_NT_VUT_XX,,"Ecosystem Respiration, from Nighttime partitioning method (with XX = 05, 16, 25, 50, 75, 84, 95)"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_NT_CUT_REF,,"Ecosystem Respiration, from Nighttime partitioning method, reference selected from RECO versions using model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_NT_CUT_USTAR50,,"Ecosystem Respiration, from Nighttime partitioning method, based on NEE_CUT_USTAR50"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_NT_CUT_MEAN,,"Ecosystem Respiration, from Nighttime partitioning method, average from RECO versions, each from corresponding NEE_CUT_XX version"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly RECO_NT_CUT_XX
+DD,gC m-2 d-1,average from 40 daily RECO_NT_CUT_XX
+WW,gC m-2 d-1,average from 40 weekly RECO_NT_CUT_XX
+MM,gC m-2 d-1,average from 40 monthly RECO_NT_CUT_XX
+YY,gC m-2 y-1,average from 40 yearly RECO_NT_CUT_XX
+RECO_NT_CUT_SE,,"Standard Error for Ecosystem Respiration, calculated as  (SD(RECO_NT_CUT_XX) / SQRT(40))"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly RECO_NT_CUT_XX
+DD,gC m-2 d-1,SE from 40 daily RECO_NT_CUT_XX
+WW,gC m-2 d-1,SE from 40 weekly RECO_NT_CUT_XX
+MM,gC m-2 d-1,SE from 40 monthly RECO_NT_CUT_XX
+YY,gC m-2 y-1,SE from 40 yearly RECO_NT_CUT_XX
+RECO_NT_CUT_XX,,"Ecosystem Respiration, from Nighttime partitioning method (with XX = 05, 16, 25, 50, 75, 84, 95)"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_NT_VUT_REF,,"Gross Primary Production, from Nighttime partitioning method, reference selected from GPP versions using model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_NT_VUT_USTAR50,,"Gross Primary Production, from Nighttime partitioning method, based on NEE_VUT_USTAR50"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_NT_VUT_MEAN,,"Gross Primary Production, from Nighttime partitioning method, average from GPP versions, each from corresponding NEE_VUT_XX version"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly GPP_NT_VUT_XX
+DD,gC m-2 d-1,average from 40 daily GPP_NT_VUT_XX
+WW,gC m-2 d-1,average from 40 weekly GPP_NT_VUT_XX
+MM,gC m-2 d-1,average from 40 monthly GPP_NT_VUT_XX
+YY,gC m-2 y-1,average from 40 yearly GPP_NT_VUT_XX
+GPP_NT_VUT_SE,,"Standard Error for Gross Primary Production, calculated as  (SD(GPP_NT_VUT_XX) / SQRT(40))"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly GPP_NT_VUT_XX
+DD,gC m-2 d-1,SE from 40 daily GPP_NT_VUT_XX
+WW,gC m-2 d-1,SE from 40 weekly GPP_NT_VUT_XX
+MM,gC m-2 d-1,SE from 40 monthly GPP_NT_VUT_XX
+YY,gC m-2 y-1,SE from 40 yearly GPP_NT_VUT_XX
+GPP_NT_VUT_XX,,"Gross Primary Production, from Nighttime partitioning method (with XX = 05, 16, 25, 50, 75, 84, 95)"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_NT_CUT_REF,,"Gross Primary Production, from Nighttime partitioning method, reference selected from GPP versions using model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_NT_CUT_USTAR50,,"Gross Primary Production, from Nighttime partitioning method, based on NEE_CUT_USTAR50"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_NT_CUT_MEAN,,"Gross Primary Production, from Nighttime partitioning method, average from GPP versions, each from corresponding NEE_CUT_XX version"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly GPP_NT_CUT_XX
+DD,gC m-2 d-1,average from 40 daily GPP_NT_CUT_XX
+WW,gC m-2 d-1,average from 40 weekly GPP_NT_CUT_XX
+MM,gC m-2 d-1,average from 40 monthly GPP_NT_CUT_XX
+YY,gC m-2 y-1,average from 40 yearly GPP_NT_CUT_XX
+GPP_NT_CUT_SE,,"Standard Error for Gross Primary Production, calculated as  (SD(GPP_NT_CUT_XX) / SQRT(40))"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly GPP_NT_CUT_XX
+DD,gC m-2 d-1,SE from 40 daily GPP_NT_CUT_XX
+WW,gC m-2 d-1,SE from 40 weekly GPP_NT_CUT_XX
+MM,gC m-2 d-1,SE from 40 monthly GPP_NT_CUT_XX
+YY,gC m-2 y-1,SE from 40 yearly GPP_NT_CUT_XX
+GPP_NT_CUT_XX,,"Gross Primary Production, from Nighttime partitioning method (with XX = 05, 16, 25, 50, 75, 84, 95)"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+,,
+DAYTIME,,
+RECO_DT_VUT_REF,,"Ecosystem Respiration, from Daytime partitioning method, reference selected from RECO versions using model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_DT_VUT_USTAR50,,"Ecosystem Respiration, from Daytime partitioning method, based on NEE_VUT_USTAR50"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_DT_VUT_MEAN,,"Ecosystem Respiration, from Daytime partitioning method, average from RECO versions, each from corresponding NEE_VUT_XX version"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly RECO_DT_VUT_XX
+DD,gC m-2 d-1,average from 40 daily RECO_DT_VUT_XX
+WW,gC m-2 d-1,average from 40 weekly RECO_DT_VUT_XX
+MM,gC m-2 d-1,average from 40 monthly RECO_DT_VUT_XX
+YY,gC m-2 y-1,average from 40 yearly RECO_DT_VUT_XX
+RECO_DT_VUT_SE,,"Standard Error for Ecosystem Respiration, calculated as  (SD(RECO_DT_VUT_XX) / SQRT(40))"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly RECO_DT_VUT_XX
+DD,gC m-2 d-1,SE from 40 daily RECO_DT_VUT_XX
+WW,gC m-2 d-1,SE from 40 weekly RECO_DT_VUT_XX
+MM,gC m-2 d-1,SE from 40 monthly RECO_DT_VUT_XX
+YY,gC m-2 y-1,SE from 40 yearly RECO_DT_VUT_XX
+RECO_DT_VUT_XX,,"Ecosystem Respiration, from Daytime partitioning method (with XX = 05, 16, 25, 50, 75, 84, 95)"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_DT_CUT_REF,,"Ecosystem Respiration, from Daytime partitioning method, reference selected from RECO versions using model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_DT_CUT_USTAR50,,"Ecosystem Respiration, from Daytime partitioning method, based on NEE_CUT_USTAR50"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_DT_CUT_MEAN,,"Ecosystem Respiration, from Daytime partitioning method, average from RECO versions, each from corresponding NEE_CUT_XX version"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly RECO_DT_CUT_XX
+DD,gC m-2 d-1,average from 40 daily RECO_DT_CUT_XX
+WW,gC m-2 d-1,average from 40 weekly RECO_DT_CUT_XX
+MM,gC m-2 d-1,average from 40 monthly RECO_DT_CUT_XX
+YY,gC m-2 y-1,average from 40 yearly RECO_DT_CUT_XX
+RECO_DT_CUT_SE,,"Standard Error for Ecosystem Respiration, calculated as  (SD(RECO_DT_CUT_XX) / SQRT(40))"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly RECO_DT_CUT_XX
+DD,gC m-2 d-1,SE from 40 daily RECO_DT_CUT_XX
+WW,gC m-2 d-1,SE from 40 weekly RECO_DT_CUT_XX
+MM,gC m-2 d-1,SE from 40 monthly RECO_DT_CUT_XX
+YY,gC m-2 y-1,SE from 40 yearly RECO_DT_CUT_XX
+RECO_DT_CUT_XX,,"Ecosystem Respiration, from Daytime partitioning method (with XX = 05, 16, 25, 50, 75, 84, 95)"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_DT_VUT_REF,,"Gross Primary Production, from Daytime partitioning method, reference selected from GPP versions using model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_DT_VUT_USTAR50,,"Gross Primary Production, from Daytime partitioning method, based on NEE_VUT_USTAR50"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_DT_VUT_MEAN,,"Gross Primary Production, from Daytime partitioning method, average from GPP versions, each from corresponding NEE_VUT_XX version"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly GPP_DT_VUT_XX
+DD,gC m-2 d-1,average from 40 daily GPP_DT_VUT_XX
+WW,gC m-2 d-1,average from 40 weekly GPP_DT_VUT_XX
+MM,gC m-2 d-1,average from 40 monthly GPP_DT_VUT_XX
+YY,gC m-2 y-1,average from 40 yearly GPP_DT_VUT_XX
+GPP_DT_VUT_SE,,"Standard Error for Gross Primary Production, calculated as  (SD(GPP_DT_VUT_XX) / SQRT(40))"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly GPP_DT_VUT_XX
+DD,gC m-2 d-1,SE from 40 daily GPP_DT_VUT_XX
+WW,gC m-2 d-1,SE from 40 weekly GPP_DT_VUT_XX
+MM,gC m-2 d-1,SE from 40 monthly GPP_DT_VUT_XX
+YY,gC m-2 y-1,SE from 40 yearly GPP_DT_VUT_XX
+GPP_DT_VUT_XX,,"Gross Primary Production, from Daytime partitioning method (with XX = 05, 16, 25, 50, 75, 84, 95)"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_DT_CUT_REF,,"Gross Primary Production, from Daytime partitioning method, reference selected from GPP versions using model efficiency (MEF). The MEF analysis is repeated for each time aggregation"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_DT_CUT_USTAR50,,"Gross Primary Production, from Daytime partitioning method, based on NEE_CUT_USTAR50"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+GPP_DT_CUT_MEAN,,"Gross Primary Production, from Daytime partitioning method, average from GPP versions, each from corresponding NEE_CUT_XX version"
+HH,ÂµmolCO2 m-2 s-1,average from 40 half-hourly GPP_DT_CUT_XX
+DD,gC m-2 d-1,average from 40 daily GPP_DT_CUT_XX
+WW,gC m-2 d-1,average from 40 weekly GPP_DT_CUT_XX
+MM,gC m-2 d-1,average from 40 monthly GPP_DT_CUT_XX
+YY,gC m-2 y-1,average from 40 yearly GPP_DT_CUT_XX
+GPP_DT_CUT_SE,,"Standard Error for Gross Primary Production, calculated as  (SD(GPP_DT_CUT_XX) / SQRT(40))"
+HH,ÂµmolCO2 m-2 s-1,SE from 40 half-hourly GPP_DT_CUT_XX
+DD,gC m-2 d-1,SE from 40 daily GPP_DT_CUT_XX
+WW,gC m-2 d-1,SE from 40 weekly GPP_DT_CUT_XX
+MM,gC m-2 d-1,SE from 40 monthly GPP_DT_CUT_XX
+YY,gC m-2 y-1,SE from 40 yearly GPP_DT_CUT_XX
+GPP_DT_CUT_XX,,"Gross Primary Production, from Daytime partitioning method (with XX = 05, 16, 25, 50, 75, 84, 95)"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+,,
+SUNDOWN,,
+RECO_SR,,"Ecosystem Respiration, from Sundown Respiration partitioning method"
+HH,ÂµmolCO2 m-2 s-1,
+DD,gC m-2 d-1,calculated from half-hourly data
+WW-MM,gC m-2 d-1,average from daily data
+YY,gC m-2 y-1,sum from daily data
+RECO_SR_N,,"Fraction between 0-1, indicating the percentage of data avaiable in the averaging period to parametrize the respiration model"
+HH,,not available
+DD-YY,nondimensional,percentage of data available
