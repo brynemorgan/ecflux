@@ -14,7 +14,7 @@ __url__ = ''
 
 """
 
-Name:           fluxnet_tower.py
+Name:           flx_tower.py
 Compatibility:  Python 3.7.0
 Description:    Description of what program does
 
@@ -226,3 +226,48 @@ class FluxNetTower(FluxTower):
         elif isinstance(self.var_info, dict):
             return utils.get_recols(pattern, self.var_info.keys())
 
+
+    def add_vp_cols(self):
+        vpd_cols = self.get_var_cols(variable='VPD', exclude='ERA')
+        vpd_cols = [col for col in vpd_cols if 'QC' not in col]
+        # Calculate saturation vapor pressure
+        for col in vpd_cols:
+            suff = col.replace('VPD', '')
+            self.data['e_star' + suff] = self.calc_svp(suff)
+            self.data['e_star' + suff + '_QC'] = self.data['TA' + suff + '_QC'].copy()
+            self.data['e_a' + suff] = self.calc_vp(self.data['e_star' + suff], suff)
+            self.data['e_a' + suff + '_QC'] = self.data['VPD' + suff + '_QC'].copy()
+        # return self
+
+    def calc_vp(self, svp, suff = '_F_MDS'):
+
+        e_a = svp - (self.data['VPD' + suff]*0.1)
+        e_a.name = 'e_a' + suff
+
+        return e_a
+
+    def calc_svp(self, suff='_F_MDS'):
+        # Calculate saturation vapor pressure
+        svp = 0.611 * np.exp((17.502 * self.data['TA' + suff]) / (self.data['TA' + suff] + 240.97))
+
+        svp.name = 'e_star' + suff
+
+        return svp
+
+    def add_et_cols(self, suff='_F_MDS'):
+        self.data['ET' + suff] = self.calc_et(suff)
+        self.data['ET' + suff + '_QC'] = self.data['LE' + suff + '_QC'].copy()
+
+
+    def calc_et(self, suff='_F_MDS'):
+
+        lambda_v = (2.501 - (2.361e-3 * self.data['TA_F_MDS'])) * 1e6
+
+        if self._timestep == 'HH':
+            mult = 3600     # mm hr-1
+        else:
+            mult = 86400    # mm day-1
+
+        et = (self.data['LE' + suff] * mult) / lambda_v  
+
+        return et
