@@ -114,6 +114,8 @@ class FluxNetTower(FluxTower):
             site_badm, key_col='VARIABLE', val_col='DATAVALUE'
         )
         self.metadata.update((k, pd.to_numeric(v,errors='ignore')) for k, v in self.metadata.items())
+        
+        self.metadata['VEG_HEIGHT'] = self.metadata.get('HEIGHTC', np.nan)
 
         self._set_coords()
         self._set_tz()
