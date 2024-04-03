@@ -85,11 +85,11 @@ class FluxNetTower(FluxTower):
 
         super().__init__(filepath)
 
-        # flx_id
+        # id
         if flx_id:
-            self.flx_id = flx_id
+            self.id = flx_id
         else:
-            self.flx_id = os.path.basename(self._filepath)[4:10]
+            self.id = os.path.basename(self._filepath)[4:10]
 
         # timestep
         self._timestep = self._get_timestep()
@@ -110,7 +110,7 @@ class FluxNetTower(FluxTower):
     
     def set_metadata(self):
         site_badm = self._all_badm[self._all_badm.VARIABLE_GROUP != 'GRP_VAR_INFO']
-        self.metadata = { 'ID' : self.flx_id } | utils.cols_to_dict(
+        self.metadata = { 'ID' : self.id } | utils.cols_to_dict(
             site_badm, key_col='VARIABLE', val_col='DATAVALUE'
         )
         self.metadata.update((k, pd.to_numeric(v,errors='ignore')) for k, v in self.metadata.items())
@@ -122,7 +122,7 @@ class FluxNetTower(FluxTower):
 
     def _get_all_badm(self):
         all_meta = self._get_ts_metadata()
-        return all_meta[all_meta.SITE_ID == self.flx_id]
+        return all_meta[all_meta.SITE_ID == self.id]
     
     def _get_ts_metadata(self):
         try:
@@ -150,7 +150,7 @@ class FluxNetTower(FluxTower):
             var_info_all = get_ts_var_info(self._get_ts_metadata())
             FLX_VAR_INFO_DICT[self._timestep] = var_info_all
 
-        var_info = var_info_all[var_info_all.SITE_ID == self.flx_id]
+        var_info = var_info_all[var_info_all.SITE_ID == self.id]
 
         if as_dict:
             var_info = var_info.set_index('VARNAME').to_dict(orient='index')

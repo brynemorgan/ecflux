@@ -148,9 +148,9 @@ class AmeriFluxTower(FluxTower):
 
         # amf_id
         if amf_id:
-            self.amf_id = amf_id
+            self.id = amf_id
         else:
-            self.amf_id = os.path.basename(self._filepath)[4:10]
+            self.id = os.path.basename(self._filepath)[4:10]
 
         # badm
         self.set_badm()
@@ -175,26 +175,26 @@ class AmeriFluxTower(FluxTower):
     def set_metadata(self):
 
         self.metadata = {k : self.badm.get(v, None) for k,v in AMF_META_VARS.items()}
-        self.metadata.update(AMF_SUPP_META.get(self.amf_id))
+        self.metadata.update(AMF_SUPP_META.get(self.id))
         
         self._set_coords()
         self._set_tz()
 
     def set_badm(self):
 
-        # self.badm = AMF_BADM_DB[AMF_BADM_DB.SITE_ID == self.amf_id].to_dict(orient='records')
-        self.badm = {'AMF_ID' : self.amf_id} | AMF_SITE_BADM.get(self.amf_id)
+        # self.badm = AMF_BADM_DB[AMF_BADM_DB.SITE_ID == self.id].to_dict(orient='records')
+        self.badm = {'AMF_ID' : self.id} | AMF_SITE_BADM.get(self.id)
         self.badm.update((k, pd.to_numeric(v,errors='ignore')) for k, v in self.badm.items())
     
     def set_heights(self):
             
-        self.heights = AMF_SITE_HEIGHT.get(self.amf_id)
+        self.heights = AMF_SITE_HEIGHT.get(self.id)
     
     def _get_all_badm(self):
-        return AMF_BADM_DF[AMF_BADM_DF.SITE_ID == self.amf_id]
+        return AMF_BADM_DF[AMF_BADM_DF.SITE_ID == self.id]
     
     def _get_all_heights(self):
-        return AMF_HEIGHT_DF[AMF_HEIGHT_DF.Site_ID == self.amf_id]
+        return AMF_HEIGHT_DF[AMF_HEIGHT_DF.Site_ID == self.id]
 
     def get_flux_file(self):
 
