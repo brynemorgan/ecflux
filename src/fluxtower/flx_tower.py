@@ -67,6 +67,7 @@ def get_ts_var_info(
     var_info.reset_index(inplace=True)
     var_info = reorder_cols(var_info, order=order)
     var_info.columns = remove_prefix(var_info)
+    var_info['HEIGHT'] = var_info['HEIGHT'].astype(float)
     return var_info
 
 
@@ -153,7 +154,8 @@ class FluxNetTower(FluxTower):
         var_info = var_info_all[var_info_all.SITE_ID == self.id]
 
         if as_dict:
-            var_info = var_info.set_index('VARNAME').to_dict(orient='index')
+            # var_info = var_info.set_index('VARNAME').to_dict(orient='index')
+            var_info = utils.df_to_dict(var_info, index_col='VARNAME')
         return var_info
 
     def _get_meta_file(self, date='20200501'):

@@ -88,7 +88,20 @@ def cols_to_dict(df, key_col='VARIABLE', val_col='DATAVALUE'):
 #     )
 
 #     return dat
+def df_to_dict(df, index_col='VARNAME'):
+    cols = list(df.columns)
+    dup_vars = list(
+        df.groupby(index_col)[cols[0]].count()[df.groupby(index_col)[cols[0]].count() >1].index
+    )
 
+    dup_dict = df[df[index_col].isin(dup_vars)].groupby(index_col).apply(
+        lambda group : group.to_dict(orient='list'),
+        include_groups=False
+    ).to_dict()
+
+    reg_dict = df[~df[index_col].isin(dup_vars)].set_index(index_col).to_dict(orient='index')
+
+    return reg_dict | dup_dict
 
 def convert_units(val, unit):
 
