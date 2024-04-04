@@ -94,11 +94,13 @@ def df_to_dict(df, index_col='VARNAME'):
         df.groupby(index_col)[cols[0]].count()[df.groupby(index_col)[cols[0]].count() >1].index
     )
 
-    dup_dict = df[df[index_col].isin(dup_vars)].groupby(index_col).apply(
-        lambda group : group.to_dict(orient='list'),
-        include_groups=False
-    ).to_dict()
-
+    if len(dup_vars) > 0:
+        dup_dict = df[df[index_col].isin(dup_vars)].groupby(index_col).apply(
+            lambda group : group.to_dict(orient='list'),
+            include_groups=False
+        ).to_dict()
+    else:
+        dup_dict = {}
     reg_dict = df[~df[index_col].isin(dup_vars)].set_index(index_col).to_dict(orient='index')
 
     return reg_dict | dup_dict
