@@ -99,6 +99,7 @@ class FluxNetTower(FluxTower):
         self._all_badm = self._get_all_badm() #self._get_ts_metadata()
         self.set_metadata()
         self.var_info = self._get_var_info()
+        self.grp_info = self._get_var_info(keys='GROUP_ID')
         self.heights = self.get_heights()
 
         # flux
@@ -136,7 +137,7 @@ class FluxNetTower(FluxTower):
             return meta
 
 
-    def _get_var_info(self, as_dict=True):
+    def _get_var_info(self, as_dict=True, keys='VARNAME'):
         # var_info = self._all_badm[self._all_badm.VARIABLE_GROUP == 'GRP_VAR_INFO']
         # var_info = var_info.pivot(index='GROUP_ID', columns='VARIABLE', values='DATAVALUE')
         # var_info.reset_index(inplace=True)
@@ -155,7 +156,7 @@ class FluxNetTower(FluxTower):
 
         if as_dict:
             # var_info = var_info.set_index('VARNAME').to_dict(orient='index')
-            var_info = utils.df_to_dict(var_info, index_col='VARNAME')
+            var_info = utils.df_to_dict(var_info, index_col=keys)
         return var_info
 
     def _get_meta_file(self, date='20200501'):
