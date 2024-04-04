@@ -52,6 +52,14 @@ META = pd.read_csv(
     )
 )
 
+SOIL = pd.read_csv(
+    os.path.join(
+        os.path.dirname(__file__),
+        'metadata',
+        'soil_properties.csv'
+    )
+)
+
 
 FLX_BADM_DICT = {}
 FLX_VAR_INFO_DICT = {}
@@ -104,6 +112,7 @@ class FluxNetTower(FluxTower):
         self.var_info = self._get_var_info()
         self.grp_info = self._get_var_info(as_dict=True, keys='GROUP_ID')
         self.heights = self.get_heights()
+        self.soil_info = self._get_soil_properties()
 
         # flux
         self.flux = self.import_flux()
@@ -165,6 +174,9 @@ class FluxNetTower(FluxTower):
     def _get_meta_file(self, date='20200501'):
         return f'FLX_AA-Flx_BIF_{self._timestep}_{date}.csv'
 
+    def _get_soil_properties(self):
+        soil_info = SOIL[SOIL.SITE_ID == self.id].iloc[:,3:].to_dict(orient='records')[0]
+        return soil_info
 
     def _get_timestep(self):
         # pattern = r'_BIF_([A-Za-z]+)_\d{8}\.csv$'
