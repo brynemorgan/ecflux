@@ -68,6 +68,9 @@ def get_ts_var_info(
     var_info = reorder_cols(var_info, order=order)
     var_info.columns = remove_prefix(var_info)
     var_info['HEIGHT'] = var_info['HEIGHT'].astype(float)
+
+    var_info['DATE'] = pd.to_datetime(var_info['DATE'], format='mixed')
+
     return var_info
 
 
@@ -99,7 +102,7 @@ class FluxNetTower(FluxTower):
         self._all_badm = self._get_all_badm() #self._get_ts_metadata()
         self.set_metadata()
         self.var_info = self._get_var_info()
-        self.grp_info = self._get_var_info(keys='GROUP_ID')
+        self.grp_info = self._get_var_info(as_dict=True, keys='GROUP_ID')
         self.heights = self.get_heights()
 
         # flux
