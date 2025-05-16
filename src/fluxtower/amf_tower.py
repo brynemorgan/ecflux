@@ -175,7 +175,8 @@ class AmeriFluxTower(FluxTower):
     def set_metadata(self):
 
         self.metadata = {k : self.badm.get(v, None) for k,v in AMF_META_VARS.items()}
-        self.metadata.update(AMF_SUPP_META.get(self.id))
+        if self.id in AMF_SUPP_META.keys():
+            self.metadata.update(AMF_SUPP_META.get(self.id))
         
         self._set_coords()
         self._set_tz()
