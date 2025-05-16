@@ -114,7 +114,8 @@ num_cols = ['MAT', 'MAP', 'LOCATION_LAT', 'LOCATION_LONG', 'LOCATION_ELEV', 'UTC
 AMF_BADM_DF = pd.read_csv(
     os.path.join(
         os.path.dirname(os.path.realpath(__file__)), 
-        'AMF_AA-Net_BIF_CCBY4_20220811.csv'
+        # 'AMF_AA-Net_BIF_CCBY4_20220811.csv'
+        'AMF_AA-Net_BIF_CCBY4_20250430.csv'
     )
 )# AMF BADM data for all sites (dict of dicts)
 AMF_SITE_BADM = AMF_BADM_DF.groupby('SITE_ID').apply(
@@ -126,7 +127,8 @@ AMF_SITE_BADM = AMF_BADM_DF.groupby('SITE_ID').apply(
 AMF_HEIGHT_DF = pd.read_csv(
     os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
-        'BASE_MeasurementHeight_20220811.csv'
+        # 'BASE_MeasurementHeight_20220811.csv'
+        'BASE_MeasurementHeight_20250430.csv'
     )
 )
 
